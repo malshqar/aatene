@@ -1,0 +1,11 @@
+{
+    "User": true,
+    "Seller": true,
+    "Admin": true,
+    "Profiles": true,
+    "Photos": true,
+    "AdminDashboard": true,
+    "Shared": true,
+    "Dashboard": true,
+    "StoreDashboard": true
+}

@@ -1,0 +1,11 @@
+{
+    "name": "StoreDashboard",
+    "alias": "storedashboard",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StoreDashboard\\Providers\\StoreDashboardServiceProvider"
+    ],
+    "files": []
+}
