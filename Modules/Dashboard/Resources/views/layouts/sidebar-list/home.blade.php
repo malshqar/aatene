@@ -8,7 +8,7 @@
             <span class="path4"></span>
         </i>
     </span>
-    <span class="menu-title  fs-6">لوحة القيادة</span>
+    <span class="menu-title  fs-4 fw-bold">لوحة القيادة</span>
     <span class="menu-arrow"></span>
 </span>
 <!--end:Menu link-->

@@ -3,8 +3,11 @@
 namespace Modules\User\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\User\Entities\User;
+use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -14,7 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user::index');
+
+        return view('user::index', [
+            'users' => User::paginate()
+        ]);
     }
 
     /**
@@ -26,45 +32,30 @@ class UserController extends Controller
         return view('user::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+
+    public function store(UserRequest $request): RedirectResponse
     {
-        //
+        User::create($request->validated());
+        return back()->with(['notification' => 'تمت اضافة مستخدم جديد بنجاح']);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+
+    public function show(User $user)
     {
-        return view('user::show');
+        return view('user::show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+
+    public function edit(User $user)
     {
-        return view('user::edit');
+        return view('user::edit',compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
-        //
+        $user->update($request->validated());
+        return to_route('dashboard.users.index')->with(['notification' => " تم تعديل بيانات $user->name بنجاح"]);
     }
 
     /**

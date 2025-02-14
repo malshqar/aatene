@@ -7,5 +7,6 @@
     "AdminDashboard": true,
     "Shared": true,
     "Dashboard": true,
-    "StoreDashboard": true
+    "StoreDashboard": true,
+    "Photo": true
 }
