@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
                     ->symbols()
                     
             ],
-            'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20',
+            'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number',
             'status' => 'required|string|in:active,inactive',
             'avatar' => 'required|image'
         ];

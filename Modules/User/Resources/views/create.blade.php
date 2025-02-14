@@ -106,7 +106,7 @@
                                         ])
                                             placeholder="اختر حالة هذا الموظف">
                                             <option value="active" @selected(old('status') == 'active')>موظف نشط</option>
-                                            <option value="blocked" @selected(old('status') == 'blocked')>موظف محظور</option>
+                                            <option value="inactive" @selected(old('status') == 'inactive')>موظف محظور</option>
                                         </select>
                                     </div>
                                     <div class="mb-5">

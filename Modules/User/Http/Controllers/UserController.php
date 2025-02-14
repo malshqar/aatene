@@ -18,9 +18,10 @@ class UserController extends Controller
     public function index()
     {
 
-        return view('user::index', [
-            'users' => User::paginate()
-        ]);
+        $filters = request()->query();
+        $count = (int) request()->query('count');
+        $users = User::filters($filters)->latest()->paginate($count == 0 ? 7 : $count);
+        return view('user::index', compact('users'));
     }
 
     /**
@@ -35,7 +36,13 @@ class UserController extends Controller
 
     public function store(UserRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        \DB::transaction(function () use ($request) {
+            $user = User::create($request->validated());
+            $file = $request->file('avatar');
+            $path = $user->uploadOnDisk($file);
+            $user->storeImage($path, \Str::slug($file->getClientOriginalName() . rand(5, 10)));
+
+        });
         return back()->with(['notification' => 'تمت اضافة مستخدم جديد بنجاح']);
     }
 
@@ -48,7 +55,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('user::edit',compact('user'));
+        return view('user::edit', compact('user'));
     }
 
 

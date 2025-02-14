@@ -17,7 +17,7 @@
                         <!--begin::Header-->
                         <div class="card-header border-0 pt-5">
                             <div class="card-title align-items-start flex-column">
-                                <!-- filters -->
+                                @include('user::_filters')
                             </div>
                             <div class="card-toolbar">
                                 <a href="{{ route('dashboard.users.create') }}" class="btn btn-sm btn-light-primary fs-3">
