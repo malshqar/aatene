@@ -25,12 +25,6 @@ trait HasPhoto
         return parent::getArrayableItems($values);
     }
 
-    public static function bootHasPhoto()
-    {
-        static::deleted(function ($model) {
-            $model->deleteImage();
-        });
-    }
 
     public function photo()
     {
@@ -88,7 +82,9 @@ trait HasPhoto
         }
         $url = [];
         foreach ($photo as $image) {
-            $url[] = Storage::disk('public')->temporaryUrl($image->src, now()->minutes(3600));
+         $url[] = asset(Storage::url($image->src));
+
+            // $url[] = Storage::disk('public')->temporaryUrl($image->src, now()->minutes(3600));
         }
         return $url;
     }

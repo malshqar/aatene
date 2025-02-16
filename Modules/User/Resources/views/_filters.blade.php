@@ -19,16 +19,6 @@
             </select>
             <!--end::Select-->
             <!--begin::Select-->
-            <select name="role_name" data-control="select2" data-hide-search="true" data-placeholder="التصنيف"
-                class="form-select form-select-sm border-body bg-body w-100px">
-                @foreach ($roles ?? [] as $role)
-                    <option value="{{ $role->name }}" @selected(request()->query('role_name') == $role->name)>
-                        {{ $role->name }}
-                    </option>
-                @endforeach
-            </select>
-            <!--end::Select-->
-            <!--begin::Select-->
             <select name="count" data-control="select2" data-hide-search="true" data-placeholder="العدد"
                 class="form-select form-select-sm border-body bg-body  me-5">
                 <option value="7" @selected(request()->query('count') == 7)>7</option>

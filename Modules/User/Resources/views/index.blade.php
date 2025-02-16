@@ -71,7 +71,7 @@
 
                                                 <td>
                                                     <span
-                                                        class="badge badge-light-primary fs-7 fw-bold">{{ $user->status}}</span>
+                                                        class="badge badge-light-primary fs-7 fw-bold">{{ $user->user_status}}</span>
                                                 </td>
                                                 <td>
                                                     <span class="fs-5 fw-bold">{{ $user->created_at->format('Y/m/d') }}</span>
@@ -81,6 +81,10 @@
                                                         class="fs-5 fw-bold">{{ \Carbon\Carbon::parse($user->last_active_at)->diffForHumans() }}</span>
                                                 </td>
                                                 <td class="text-end">
+                                                    <a href="{{ route('dashboard.users.ban', $user->id) }}"
+                                                        class="btn btn-icon btn-bg-light {{ is_null($user->ban_at) ? 'btn-active-color-primary' : 'btn-color-danger ' }} btn-sm me-1">
+                                                        <i class="fa-sharp-duotone fa-solid fa-ban fs-2"></i>
+                                                    </a>
                                                     <a href="{{ route('dashboard.users.edit', $user->id) }}"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                         <i class="ki-duotone ki-pencil fs-2">
@@ -88,7 +92,7 @@
                                                             <span class="path2"></span>
                                                         </i>
                                                     </a>
-                                                    <a onclick="confirmDestroy({{ $user->id }}, this)"
+                                                    <a onclick="confirmDestroy('{{ route('dashboard.users.destroy', $user->id) }}', this)"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                                         <i class="ki-duotone ki-trash fs-2">
                                                             <span class="path1"></span>
@@ -124,8 +128,10 @@
     </div>
     <!--end:::Main-->
     @push('scripts')
+
         <!--begin::Vendors Javascript(used for this page only)-->
         <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <!--end::Vendors Javascript-->
+        @include('shared::layouts.assets.js.delete-script')
     @endpush
 @endsection

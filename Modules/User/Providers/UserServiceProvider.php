@@ -2,8 +2,14 @@
 
 namespace Modules\User\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\User\Events\UserBlocked;
+use Modules\User\Events\UserCancelBlocked;
+use Modules\User\Listeners\SendBlockedCancelNotification;
+use Modules\User\Listeners\SendBlockedNotification;
+
 
 class UserServiceProvider extends ServiceProvider
 {
@@ -24,6 +30,14 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen(
+            UserBlocked::class,
+            SendBlockedNotification::class,
+        );
+        Event::listen(
+            UserCancelBlocked::class,
+            SendBlockedCancelNotification::class,
+        );
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
@@ -38,6 +52,8 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        // $this->app->register(EventServiceProvider::class);
+
     }
 
     /**
@@ -51,7 +67,8 @@ class UserServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 

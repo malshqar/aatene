@@ -1,8 +1,8 @@
-
-@props(['name', 'reload' => false, 'dashboard' => 'administrator'])
+@props(['name', 'reload' => false,])
 
 <script>
-    function confirmDestroy(id, reference) {
+    function confirmDestroy(uri, reference) {
+        console.log(uri);
         Swal.fire({
             title: 'هل انت متاكد؟',
             text: "انت تريد حذف هذا العنصر!",
@@ -14,32 +14,33 @@
             confirmButtonText: 'حذف'
         }).then((result) => {
             if (result.isConfirmed) {
-                destroy(id, reference);
+                destroy(uri, reference);
             }
         })
     }
 
-    function destroy(id, reference) {
-        axios.delete('/{{ $dashboard }}/{{ $name }}/' + id)
-            .then(function(response) {
+    function destroy(uri, reference) {
+
+        axios.delete(uri)
+            .then(function (response) {
                 // handle success
                 console.log(response);
-                if(reference.closest('tr')){
+                if (reference.closest('tr')) {
                     reference.closest('tr').remove();
                 }
                 showMessage(response.data)
                 setTimeout(() => {
                     @if($reload)
-                window.location.reload();
-                @endif
+                        window.location.reload();
+                    @endif
                 }, 1500);
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 // handle error
                 console.log(error);
                 showMessage(error.response.data);
             })
-            .then(function() {
+            .then(function () {
                 // always executed
             });
     }

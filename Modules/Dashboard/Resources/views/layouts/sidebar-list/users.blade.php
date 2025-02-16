@@ -3,7 +3,7 @@
     <!--begin:Menu link-->
     <span class="menu-link">
         <span class="menu-icon">
-            <i class="ki-duotone ki-user fs-2">
+            <i class="ki-duotone ki-people fs-2">
                 <i class="path1"></i>
                 <i class="path2"></i>
                 <i class="path3"></i>

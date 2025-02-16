@@ -1,5 +1,4 @@
 @extends('dashboard::index')
-
 @section('content')
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -58,13 +57,13 @@
                                 <!--begin::Body-->
                                 <div class="card-body py-3">
                                     <div class="mb-5">
-                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'name', 'lable' => 'اسم المستخدم', 'placholder' => 'أدخل اسم المستخدم'])
+                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'name', 'lable' => 'اسم المستخدم', 'placeholder' => 'أدخل اسم المستخدم'])
                                     </div>
                                     <div class="mb-5">
-                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'email', 'lable' => 'بريد المستخدم', 'placholder' => 'أدخل بريد المستخدم'])
+                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'email', 'lable' => 'بريد المستخدم', 'placeholder' => 'أدخل بريد المستخدم'])
                                     </div>
                                     <div class="mb-5">
-                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number', 'lable' => 'رقم هاتف المستخدم', 'placholder' => 'أدخل رقم هاتف المستخدم'])
+                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number', 'lable' => 'رقم هاتف المستخدم', 'placeholder' => 'أدخل رقم هاتف المستخدم'])
                                         <!--begin::Hint-->
                                         <div class="text-muted">
                                             يجب ان يتبع رقم الهاتف هذا التنسيق (+1 123 456 7890)
@@ -79,7 +78,7 @@
                                                 'name' => 'password',
                                                 'lable' => '  كلمة السر ',
                                                 'type' => 'password',
-                                                'placholder' => "أدخل  كلمة السر ",
+                                                'placeholder' => "أدخل  كلمة السر ",
                                                 'autocomplete' => "off"
                                             ]
                                         )
@@ -91,7 +90,7 @@
                                                 'name' => 'password_confirmation',
                                                 'lable' => ' تاكيد كلمة السر ',
                                                 'type' => 'password',
-                                                'placholder' => "أدخل تاكيد كلمة السر ",
+                                                'placeholder' => "أدخل تاكيد كلمة السر ",
                                                 'autocomplete' => "off"
                                             ]
                                         )
@@ -105,26 +104,10 @@
                                             'is-invalid' => $errors->has('status'),
                                         ])
                                             placeholder="اختر حالة هذا الموظف">
-                                            <option value="active" @selected(old('status') == 'active')>موظف نشط</option>
-                                            <option value="inactive" @selected(old('status') == 'inactive')>موظف محظور</option>
+                                            <option value="active" @selected(old('status') == 'active')>حساب فعال</option>
+                                            <option value="inactive" @selected(old('status') == 'inactive')>حساب غير فعال</option>
                                         </select>
                                     </div>
-                                    <div class="mb-5">
-                                        @include('shared::layouts.forms.lables.lable', ['lable' => 'الأدوار'])
-                                        <select data-control="select2" name="role_ids[]" @class([
-                                            'form-select',
-                                            'form-select-solid ',
-                                            'is-invalid' => $errors->has('role_ids'),
-                                        ]) multiple
-                                            placeholder="اختر دور هذا الموظف">
-                                            @foreach ($roles ?? [] as $role)
-                                                <option value="{{ $role->id }}" @if (old('role_ids') && in_array($role->id, old('role_ids'))) selected @endif>
-                                                    {{ $role->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-
                                 </div>
                                 <!--begin::Body-->
                                 <!--begin::Footer-->

@@ -26,8 +26,8 @@ class User extends Authenticatable
         'password',
         'last_active_at',
         'phone_number',
-        'blocked_at',
-        'block_reason',
+        'ban_at',
+        'ban_reason',
         'status'
     ];
 
@@ -48,9 +48,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'ban_at' => 'datetime',
         'password' => 'hashed',
     ];
 
+    public function getUserStatusAttribute()
+    {
+        return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
+    }
+    
     public function ScopeFilters(Builder $builder, $filters)
     {
         $params = array_merge([

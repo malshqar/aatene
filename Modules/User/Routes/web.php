@@ -15,6 +15,9 @@ use Modules\User\Http\Controllers\UserController;
 
 Route::prefix('dashboard')->name('dashboard.')->group(function() {
     // Route::get('/', 'UserController@index');
+    Route::get('/users/ban/{user}',[UserController::class,'ban'])->name('users.ban');
+    Route::post('/users/blocked/{user}',[UserController::class,'blocked'])->name('users.blocked');
+    Route::post('/users/cancel-ban/{user}',[UserController::class,'cancelBan'])->name('users.cancel-ban');
     Route::resource('/users',UserController::class);
 });
 

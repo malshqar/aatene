@@ -13,11 +13,9 @@ class Photo extends Model
     use HasFactory;
 
     protected $fillable = ['src', 'type', 'slug'];
-
     public function photoable()
     {
         return $this->morphTo();
     }
-
 
 }
