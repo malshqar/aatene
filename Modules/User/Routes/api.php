@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\User\Http\Controllers\UserApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::get('/users', function (Request $request) {
+// });
+Route::get('/users',[UserApiController::class,'index'])->name('users');
+Route::get('/user/{user}',[UserApiController::class,'show'])->name('users.show');

@@ -11,7 +11,7 @@ trait HasPhoto
 
     protected function getArrayableAppends()
     {
-        $this->appends = array_unique(array_merge($this->appends, ['ImagesWithType', 'Images', 'Image']));
+        $this->appends = array_unique(array_merge($this->appends, ['assets']));
 
         return parent::getArrayableAppends();
     }
@@ -60,55 +60,15 @@ trait HasPhoto
         }
     }
 
-    public function getImageAttribute()
+    public function getAssetsAttribute()
     {
-        $photo = $this->photo;
-        if (!$photo) {
-            return 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg';
-        }
-        //  $url = Storage::temporaryUrl($photo->src, now()->minutes(120));
-         $url = asset(Storage::url($photo->src));
-
-        return $url;
+        return $this->assets();
     }
 
-
-
-    public function getImagesAttribute()
-    {
-        $photo = $this->photo()->get();
-        if (!$photo) {
-            return 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg';
-        }
-        $url = [];
-        foreach ($photo as $image) {
-         $url[] = asset(Storage::url($image->src));
-
-            // $url[] = Storage::disk('public')->temporaryUrl($image->src, now()->minutes(3600));
-        }
-        return $url;
-    }
-
-    public function getImagesWithTypeAttribute(): array|string
-    {
-        $photo = $this->photo()->get();
-        if (!$photo) {
-            return 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg';
-        }
-        $images = [];
-        foreach ($photo as $image) {
-            $images[] =
-                [
-                    'url' => Storage::disk('public')->temporaryUrl($image->src, now()->minutes(120)),
-                    'type' => $image->type
-                ];
-        }
-        return $images;
-    }
 
     public static function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
     {
-        $name =  time().'_'. $image->getClientOriginalName();
+        $name = time() . '_' . $image->getClientOriginalName();
         $path = $image->storeAs("$dir", $name, $disk);
         return $path;
     }
@@ -122,5 +82,30 @@ trait HasPhoto
             $data_images[] = $path;
         }
         return $data_images;
+    }
+
+    public function assets()
+    {
+        $photo = $this->photo()->get();
+        if (!$photo) {
+            return 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg';
+        } else if ((count($photo) == 1)) {
+            //  $url = Storage::temporaryUrl($photo->src, now()->minutes(120));
+            return [
+                'url' => asset(Storage::url($this->photo->src)),
+                'type' => $this->photo->type,
+                'slug' => $this->photo->slug
+            ];
+        } else if ((count($photo) >= 2)) {
+            $url = [];
+            foreach ($photo as $el) {
+                $url[] = [
+                    'url' => asset(Storage::url($el->src)),
+                    'type' => $el->type,
+                    'slug' => $el->slug
+                ];
+            }
+            return $url;
+        }
     }
 }

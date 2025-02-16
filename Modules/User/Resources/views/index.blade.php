@@ -56,7 +56,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="symbol symbol-50px me-5">
                                                             <img src="{{ asset('assets/media/misc/spinner.gif') }}"
-                                                                data-src="{{ $user->image }}" class="lozad rounded mw-100"
+                                                                data-src="{{ $user->assets['url'] }}" class="lozad rounded mw-100"
                                                                 alt="" />
                                                         </div>
                                                         <div class="d-flex justify-content-start flex-column">

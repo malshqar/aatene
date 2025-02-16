@@ -11,15 +11,19 @@ trait HasScopes
     {
         $params = array_merge([
             'search' => null,
-            'status' => null
+            'status' => null,
+            'orderBy'=>'desc',
         ], $filters);
         $builder->when($params['search'], function ($builder, $value) {
-            $builder->where('name', 'like', "%$value%")
-                ->orWhere('email', 'like', "%$value%")
-                ->orWhere('phone_number', 'like', "%$value%");
+            $builder->where('name', 'like', "%".$value."%")
+                ->orWhere('email', 'like', "%".$value."%")
+                ->orWhere('phone_number', 'like', "%".$value."%");
         });
         $builder->when($params['status'], function ($builder, $value) {
             $builder->where('status', '=', $value);
+        });
+        $builder->when($params['orderBy'], function ($builder, $value) {
+            $builder->orderBy('id',$value);
         });
     }
 

@@ -43,7 +43,7 @@
                                         <h2> صورة {{$user->name}}</h2>
                                         <div class="d-flex justify-content-center">
                                             <div class="image-input-wrapper image-input-placeholder w-125px h-125px">
-                                                <img src="{{ $user->image }}" width="125px" height="125px" alt="">
+                                                <img src="{{ $user->assets['url'] }}" width="125px" height="125px" alt="">
                                             </div>
                                         </div>
                                     </div>
