@@ -8,5 +8,6 @@
     "Shared": true,
     "Dashboard": true,
     "StoreDashboard": true,
-    "Photo": true
+    "Photo": true,
+    "AccessControl": true
 }
