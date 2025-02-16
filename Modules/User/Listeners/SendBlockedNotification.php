@@ -31,6 +31,6 @@ class SendBlockedNotification implements ShouldQueue
      */
     public function handle(UserBlocked $event)
     {
-        $event->user->notify(new UserBlockedNotifications());
+        $event->user->notify((new UserBlockedNotifications($event->user)));
     }
 }

@@ -4,16 +4,16 @@ namespace Modules\User\Entities;
 
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Photo\Traits\HasPhoto;
+use Modules\User\Traits\HasScopes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasPhoto;
+    use HasApiTokens, HasFactory, Notifiable, HasPhoto,HasScopes;
 
     /**
      * The attributes that are mass assignable.
@@ -57,20 +57,6 @@ class User extends Authenticatable
         return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
     }
     
-    public function ScopeFilters(Builder $builder, $filters)
-    {
-        $params = array_merge([
-            'search' => null,
-            'status' => null
-        ], $filters);
-        $builder->when($params['search'], function ($builder, $value) {
-            $builder->where('name', 'like', "%$value%")
-                ->orWhere('email', 'like', "%$value%")
-                ->orWhere('phone_number', 'like', "%$value%");
-        });
-        $builder->when($params['status'], function ($builder, $value) {
-            $builder->where('status', '=', $value);
-        });
-    }
+
 }
 

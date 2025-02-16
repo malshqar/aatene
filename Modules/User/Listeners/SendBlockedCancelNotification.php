@@ -28,7 +28,6 @@ class SendBlockedCancelNotification
      */
     public function handle(UserCancelBlocked $event)
     {
-        $event->user->notify(new UserBlockedCancelNotifications());
-
+        $event->user->notify((new UserBlockedCancelNotifications()));
     }
 }

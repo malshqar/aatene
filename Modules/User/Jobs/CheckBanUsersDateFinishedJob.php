@@ -2,6 +2,7 @@
 
 namespace Modules\User\Jobs;
 
+use Event;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\Attributes\WithoutRelations;
 use Illuminate\Queue\SerializesModels;
@@ -9,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Modules\User\Entities\User;
+use Modules\User\Events\UserCancelBlocked;
 
 class CheckBanUsersDateFinishedJob implements ShouldQueue
 {
@@ -31,9 +33,13 @@ class CheckBanUsersDateFinishedJob implements ShouldQueue
      */
     public function handle()
     {
+        $users = User::where('ban_at', '<=', now())->get();
         \DB::table('users')->where('ban_at', '<=', now())->update([
             'ban_reason' => null,
             'ban_at' => null,
         ]);
+        foreach ($users??[] as $user) {
+            UserCancelBlocked::dispatch($user);
+        }
     }
 }

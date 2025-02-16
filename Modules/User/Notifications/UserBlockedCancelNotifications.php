@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserBlockedCancelNotifications extends Notification
+class UserBlockedCancelNotifications extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -20,6 +20,7 @@ class UserBlockedCancelNotifications extends Notification
     {
         //
     }
+
 
     /**
      * Get the notification's delivery channels.
@@ -41,9 +42,10 @@ class UserBlockedCancelNotifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+        ->greeting("مرحبا بك $notifiable->name")
+        ->line("لقد تم إلغاء حظر حسابك استمتتع بتصفح التطبيق")
+        ->action(config('app.name'), url('/'))
+        ->line('شكرا لك لإستخدام طبيقنا!');
     }
 
     /**

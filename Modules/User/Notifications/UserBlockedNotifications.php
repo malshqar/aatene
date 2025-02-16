@@ -6,8 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Modules\User\Entities\User;
 
-class UserBlockedNotifications extends Notification
+class UserBlockedNotifications extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -16,7 +17,7 @@ class UserBlockedNotifications extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public User $user)
     {
         //
     }
@@ -41,9 +42,11 @@ class UserBlockedNotifications extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+            ->greeting("مرحبا بك $notifiable->name")
+            ->line("لقد تم حظر حسابك بسبب انك  : $notifiable->ban_reason")
+            ->line("الوقت المتبقي حتى انتهاء هذا الحظر هو : {$notifiable->ban_at->diffForHumans()}")
+            ->action('الدعم الفني', url('/'))
+            ->line('شكرا لك لإستخدام طبيقنا!');
     }
 
     /**
