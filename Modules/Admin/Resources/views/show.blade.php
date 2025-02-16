@@ -1,4 +1,4 @@
-@extends('dashboard::index',['title'=>$user->name])
+@extends('dashboard::index',['title'=>$admin->name])
 
 @section('content')
     <!--begin::Main-->
@@ -6,7 +6,7 @@
         <!--begin::Content wrapper-->
         <div class="d-flex flex-column flex-column-fluid">
             <!--begin::Toolbar-->
-            @include('shared::layouts.components.elements.toolbar', ['back_url' => 'dashboard.users.index', 'previews' => 'قائمة المستخدمين', 'current' => "$user->name"])
+            @include('shared::layouts.components.elements.toolbar', ['back_url' => 'dashboard.admins.index', 'previews' => 'قائمة المستخدمين', 'current' => "$admin->name"])
             <!--end::Toolbar-->
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -20,8 +20,8 @@
                                 <!--begin: Pic-->
                                 <div class="me-7 mb-4">
                                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                        <img src="{{$user->assets['url']}}" alt="image" />
-                                        @if($user->last_active_at == now())
+                                        <img src="{{$admin->assets['url']}}" alt="image" />
+                                        @if($admin->last_active_at == now())
                                             <div
                                                 class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                             </div>
@@ -33,12 +33,12 @@
                                 <div class="flex-grow-1">
                                     <!--begin::Title-->
                                     <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
-                                        <!--begin::User-->
+                                        <!--begin::admin-->
                                         <div class="d-flex flex-column">
                                             <!--begin::Name-->
                                             <div class="d-flex align-items-center mb-2">
                                                 <a href="#"
-                                                    class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$user->name}}</a>
+                                                    class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">{{$admin->name}}</a>
                                                 <a href="#">
                                                     <i class="ki-duotone ki-verify fs-1 text-primary">
                                                         <span class="path1"></span>
@@ -55,11 +55,11 @@
                                                     <i class="ki-duotone ki-sms fs-4 me-1">
                                                         <span class="path1"></span>
                                                         <span class="path2"></span>
-                                                    </i>{{$user->email}}</a>
+                                                    </i>{{$admin->email}}</a>
                                             </div>
                                             <!--end::Info-->
                                         </div>
-                                        <!--end::User-->
+                                        <!--end::admin-->
                                         
                                     </div>
                                     <!--end::Title-->
@@ -95,7 +95,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8">
-                                    <span class="fw-bold fs-6 text-gray-800">{{$user->name}}</span>
+                                    <span class="fw-bold fs-6 text-gray-800">{{$admin->name}}</span>
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -115,7 +115,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 d-flex align-items-center">
-                                    <span class="fw-bold fs-6 text-gray-800 me-2">{{$user->phone_number}}</span>
+                                    <span class="fw-bold fs-6 text-gray-800 me-2">{{$admin->phone_number}}</span>
                                     <span class="badge badge-success">Verified</span>
                                 </div>
                                 <!--end::Col-->
@@ -136,7 +136,7 @@
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 d-flex align-items-center">
-                                    <span class="badge {{ $user->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $user->user_status }}</span>
+                                    <span class="badge {{ $admin->status == 'active' ? 'badge-success' : 'badge-danger' }}">{{ $admin->admin_status }}</span>
                                 </div>
                                 <!--end::Col-->
                             </div>

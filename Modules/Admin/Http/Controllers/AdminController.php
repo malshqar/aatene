@@ -3,8 +3,11 @@
 namespace Modules\Admin\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Admin\Entities\Admin;
+use Modules\Admin\Http\Requests\AdminRequest;
 
 class AdminController extends Controller
 {
@@ -14,7 +17,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin::index');
+        $filters = request()->query();
+        $count = (int) request()->query('count');
+        $admins = Admin::filters($filters)->latest()->paginate($count == 0 ? 7 : $count);
+        return view('admin::index', compact('admins'));
     }
 
     /**
@@ -26,14 +32,18 @@ class AdminController extends Controller
         return view('admin::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(AdminRequest $request): RedirectResponse
     {
-        //
+        \DB::transaction(function () use ($request) {
+            $admin = Admin::create($request->validated());
+            if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
+                $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
+                $admin->storeImage($path, \Str::slug($file->getClientOriginalName(), '-', 'ar'));
+            }
+
+        });
+        return back()->with(['notification' => 'تمت اضافة مدير جديد بنجاح']);
     }
 
     /**
@@ -41,9 +51,9 @@ class AdminController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Admin $admin)
     {
-        return view('admin::show');
+        return view('admin::show', compact('admin'));
     }
 
     /**
@@ -51,20 +61,28 @@ class AdminController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(Admin $admin)
     {
-        return view('admin::edit');
+        return view('admin::edit', compact('admin'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+
+    public function update(AdminRequest $request, Admin $admin): RedirectResponse
     {
-        //
+        $data = $request->validated('password');
+        if (empty($data['password'])) {
+            $data = $request->except('password');
+        }
+        \DB::transaction(function () use ($request, $admin, $data) {
+            $admin->update($data);
+            if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
+                $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
+                $admin->updateImage($path, \Str::slug($file->getClientOriginalName()));
+            }
+        });
+        return to_route('dashboard.admins.index')->with(['notification' => " تم تعديل بيانات $admin->name بنجاح"]);
+
     }
 
     /**
@@ -72,8 +90,12 @@ class AdminController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy($id)
+    public function destroy(Admin $admin)
     {
-        //
+        $isDeleted = $admin->delete();
+        if ($isDeleted) {
+            $admin->deleteImage();
+        }
+        return \Modules\Shared\Helpers\DeleteAjaxRespose::deleteAjaxResponse($isDeleted);
     }
 }

@@ -2,9 +2,10 @@
 
 <html direction="rtl" dir="rtl" style="direction: rtl">
 <!--begin::Head-->
+
 <head>
     <base href="" />
-    <title>{{ config('app.name') }} | {{ config('app.description') }}</title>
+    <title>{{ config('app.name') }} {{ isset($title) ? ' | '.$title  : '' }}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -38,7 +39,7 @@
         <!--end::Page-->
     </div>
     <!--end::App-->
-   
+
     @include('shared::layouts.components.scrolltop')
     @include('shared::layouts.assets.js.scripts')
     @stack('scripts')

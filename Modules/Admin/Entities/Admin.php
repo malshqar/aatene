@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Admin\Traits\HasScopes;
 use Modules\Photo\Traits\HasPhoto;
 use Spatie\Permission\Traits\HasRoles;
 
 
 class Admin extends User
 {
-    use HasFactory, HasApiTokens, HasPhoto, HasRoles, Notifiable;
+    use HasFactory, HasApiTokens, HasPhoto, HasRoles, Notifiable, HasScopes;
 
     protected $fillable = [
         'name',
@@ -50,5 +51,10 @@ class Admin extends User
         'password' => 'hashed',
         'role_name' => 'array',
     ];
+
+    public function getAdminStatusAttribute()
+    {
+        return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
+    }
 
 }

@@ -1,4 +1,4 @@
-@extends('dashboard::index')
+@extends('dashboard::index',['title'=>"تعديل بيانات $user->name"])
 @section('content')
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">

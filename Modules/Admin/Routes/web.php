@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Admin\Http\Controllers\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,9 @@
 |
 */
 
-Route::prefix('admin')->group(function() {
-    Route::get('/', 'AdminController@index');
+
+Route::prefix('dashboard')->name('dashboard.')->group(function() {
+   Route::resource('/admins',AdminController::class);
 });
+
+

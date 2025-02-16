@@ -1,4 +1,4 @@
-@extends('dashboard::index')
+@extends('dashboard::index',['title'=>'المستخدمين'])
 
 @section('content')
     <!--begin::Main-->

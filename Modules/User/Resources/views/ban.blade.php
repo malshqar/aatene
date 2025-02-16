@@ -1,4 +1,4 @@
-@extends('dashboard::index')
+@extends('dashboard::index',['title'=>"الحظر"])
 
 @section('content')
     <!--begin::Main-->

@@ -3,18 +3,12 @@
     <!--begin:Menu link-->
     <span class="menu-link">
         <span class="menu-icon">
-            <i class="ki-duotone ki-people fs-2">
-                <i class="path1"></i>
-                <i class="path2"></i>
-                <i class="path3"></i>
-                <i class="path4"></i>
-                <i class="path5"></i>
-                <i class="path6"></i>
-                <i class="path7"></i>
-                <i class="path8"></i>
-            </i>
-        </span>
-        <span class="menu-title fs-4 fw-bold">المستخدمين</span>
+            <i class="ki-duotone ki-user-tick fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+            </i> </span>
+        <span class="menu-title fs-4 fw-bold">المدراء</span>
         <span class="menu-arrow"></span>
     </span>
     <!--end:Menu link-->
@@ -22,16 +16,17 @@
     <div @class([
         'menu-sub',
         ' menu-sub-accordion',
-        ' here show menu-accordion' => Route::is('dashboard.users.index') || Route::is('dashboard.users.create'),
+        ' here show menu-accordion' => Route::is('dashboard.admins.index') || Route::is('dashboard.admins.create'),
     ])>
         <!--begin:Menu item-->
         <div class="menu-item">
             <!--begin:Menu link-->
-            <a @class(['menu-link', 'active fw-bold' => Route::is('dashboard.users.index')]) href="{{ route('dashboard.users.index') }}">
+            <a @class(['menu-link', 'active fw-bold' => Route::is('dashboard.admins.index')])
+                href="{{ route('dashboard.admins.index') }}">
                 <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title fs-5">قائمة المستخدمين</span>
+                <span class="menu-title fs-5">قائمة المدراء</span>
             </a>
             <!--end:Menu link-->
         </div>
@@ -39,11 +34,12 @@
         <!--begin:Menu item-->
         <div class="menu-item">
             <!--begin:Menu link-->
-            <a @class(['menu-link', 'active' => Route::is('dashboard.users.create')]) href="{{ route('dashboard.users.create') }}">
+            <a @class(['menu-link', 'active' => Route::is('dashboard.admins.create')])
+                href="{{ route('dashboard.admins.create') }}">
                 <span class="menu-bullet">
                     <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title fs-5">إضافة مستخدم </span>
+                <span class="menu-title fs-5">إضافة مدير </span>
             </a>
             <!--end:Menu link-->
         </div>
