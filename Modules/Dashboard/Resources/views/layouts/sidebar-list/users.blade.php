@@ -1,3 +1,4 @@
+@can('users.index')
 <!--begin:Menu item-->
 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
     <!--begin:Menu link-->
@@ -36,6 +37,7 @@
             <!--end:Menu link-->
         </div>
         <!--end:Menu item-->
+        @can('users.create')
         <!--begin:Menu item-->
         <div class="menu-item">
             <!--begin:Menu link-->
@@ -48,7 +50,9 @@
             <!--end:Menu link-->
         </div>
         <!--end:Menu item-->
+        @endcan
     </div>
     <!--end:Menu sub-->
 </div>
 <!--end:Menu item-->
+@endcan

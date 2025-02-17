@@ -12,6 +12,13 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admins.index')->only('index');
+        $this->middleware('can:admins.create')->only('create');
+        $this->middleware('can:admins.edit')->only('edit');
+        $this->middleware('can:admins.delete')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -83,7 +90,7 @@ class AdminController extends Controller
         if (empty($data['password'])) {
             $data = $request->except('password');
         }
-        foreach ($request->role_ids??[] as $id) {
+        foreach ($request->role_ids ?? [] as $id) {
             $names[] = Role::findById($id)->name;
             $data['role_name'] = $names;
         }

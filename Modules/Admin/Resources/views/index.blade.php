@@ -20,8 +20,10 @@
                                 @include('admin::_filters')
                             </div>
                             <div class="card-toolbar">
-                                <a href="{{ route('dashboard.admins.create') }}" class="btn btn-sm btn-light-primary fs-3">
-                                    <i class="ki-duotone ki-plus "></i>اضافة مدير </a>
+                                @can('admins.create')
+                                    <a href="{{ route('dashboard.admins.create') }}" class="btn btn-sm btn-light-primary fs-3">
+                                        <i class="ki-duotone ki-plus "></i>اضافة مدير </a>
+                                @endcan
                             </div>
                         </div>
                         <!--end::Header-->
@@ -77,8 +79,7 @@
                                                 <td>
                                                     @if (is_array($admin->role_name))
                                                         @foreach ($admin->role_name as $role)
-                                                            <span
-                                                                class="badge badge-light-primary fs-7 fw-bold">{{ __( $role) }}</span>
+                                                            <span class="badge badge-light-primary fs-7 fw-bold">{{ __($role) }}</span>
                                                         @endforeach
                                                     @endif
                                                 </td>
@@ -90,7 +91,7 @@
                                                         class="fs-5 fw-bold">{{ \Carbon\Carbon::parse($admin->last_active_at)->diffForHumans() }}</span>
                                                 </td>
                                                 <td class="text-end">
-
+                                                    @can('admins.edit')
                                                     <a href="{{ route('dashboard.admins.edit', $admin->id) }}"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                         <i class="ki-duotone ki-pencil fs-2">
@@ -98,6 +99,8 @@
                                                             <span class="path2"></span>
                                                         </i>
                                                     </a>
+                                                    @endcan
+                                                    @can('admins.delete')
                                                     <a onclick="confirmDestroy('{{ route('dashboard.admins.destroy', $admin->id) }}', this)"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                                         <i class="ki-duotone ki-trash fs-2">
@@ -108,6 +111,7 @@
                                                             <span class="path5"></span>
                                                         </i>
                                                     </a>
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

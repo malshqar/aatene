@@ -17,6 +17,15 @@ use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:users.index')->only('index');
+        $this->middleware('can:users.create')->only('create');
+        $this->middleware('can:users.edit')->only('edit');
+        $this->middleware('can:users.delete')->only('destroy');
+        $this->middleware('can:users.ban')->only('blocked','ban');
+        $this->middleware('can:users.ban-cancel')->only('cancelBan');
+    }
     /**
      * Display a listing of the resource.
      * @return Renderable
