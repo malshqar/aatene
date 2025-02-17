@@ -1,4 +1,4 @@
-@extends('dashboard::index',['title'=>'المدراء'])
+@extends('dashboard::index', ['title' => 'المدراء'])
 
 @section('content')
     <!--begin::Main-->
@@ -33,7 +33,7 @@
                                 <table class="table align-middle gs-0 gy-4">
                                     <!--begin::Table head-->
                                     <thead>
-                                        <tr class="fw-bold text-muted bg-light fs-5">
+                                        <tr class="fw-bold text-muted bg-light fs-5 align-middle">
                                             <th class="ps-4 min-w-50px rounded-start">#</th>
                                             <th class="min-w-225px">المدير</th>
                                             <th class="min-w-100px">الحالة</th>
@@ -77,7 +77,8 @@
                                                 <td>
                                                     @if (is_array($admin->role_name))
                                                         @foreach ($admin->role_name as $role)
-                                                            <span class="badge badge-light-primary fs-7 fw-bold">{{ $role }}</span>
+                                                            <span
+                                                                class="badge badge-light-primary fs-7 fw-bold">{{ __( $role) }}</span>
                                                         @endforeach
                                                     @endif
                                                 </td>
@@ -89,7 +90,7 @@
                                                         class="fs-5 fw-bold">{{ \Carbon\Carbon::parse($admin->last_active_at)->diffForHumans() }}</span>
                                                 </td>
                                                 <td class="text-end">
-                                                 
+
                                                     <a href="{{ route('dashboard.admins.edit', $admin->id) }}"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                         <i class="ki-duotone ki-pencil fs-2">

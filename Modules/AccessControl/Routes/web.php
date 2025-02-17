@@ -1,5 +1,7 @@
 <?php
 
+use Modules\AccessControl\Http\Controllers\RolesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,6 @@
 |
 */
 
-Route::prefix('accesscontrol')->group(function() {
-    Route::get('/', 'AccessControlController@index');
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::resource('/roles', RolesController::class);
 });

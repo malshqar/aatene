@@ -13,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends User
 {
-    use HasFactory, HasApiTokens, HasPhoto, HasRoles, Notifiable, HasScopes;
+    use HasFactory, HasApiTokens,  HasRoles, HasPhoto, Notifiable, HasScopes;
 
     protected $fillable = [
         'name',

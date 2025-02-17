@@ -18,7 +18,7 @@ class UserRequest extends FormRequest
         if (request()->method() == 'PUT') {
             return [
                 'name' => 'required|string|min:2|max:100',
-                'email' => 'required|string|max:255|email|unique:users,email,'.request()->user_id,
+                'email' => 'required|string|max:255|email|unique:users,email,'.$this->user->id,
                 'password' => [
                     'nullable',
                     'string',
@@ -31,7 +31,7 @@ class UserRequest extends FormRequest
                     ,
                     'confirmed'
                 ],
-                'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number,'.request()->user_id,
+                'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number,'.$this->user->id,
                 'status' => 'required|string|in:active,inactive',
                 'avatar' => 'nullable|image'
             ];

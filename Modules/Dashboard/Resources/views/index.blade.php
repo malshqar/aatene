@@ -1,13 +1,16 @@
-@extends('shared::master',['title','الرئيسية'])
+@extends('shared::master', ['title', 'الرئيسية'])
 @push('sidebar-list')
-@include('dashboard::layouts.sidebar-list.home')
-@include('dashboard::layouts.sidebar-list.users')
-@include('dashboard::layouts.sidebar-list.admins')
+    @include('dashboard::layouts.sidebar-list.home')
+    @include('dashboard::layouts.sidebar-list.users')
+    @include('dashboard::layouts.sidebar-list.admins')
+    @include('dashboard::layouts.sidebar-list.access-control')
 @endpush
 @section('content')
-    <h1>Hello World</h1>
+    <div class="p-20">
+        <h1>Hello World</h1>
 
-    <p>
-        This view is loaded from module: {!! config('dashboard.name') !!}
-    </p>
+        <p>
+            This view is loaded from module: {!! config('dashboard.name') !!}
+        </p>
+    </div>
 @endsection

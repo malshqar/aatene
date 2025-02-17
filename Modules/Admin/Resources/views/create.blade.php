@@ -1,4 +1,4 @@
-@extends('dashboard::index',['title'=>'إضافة مدير'])
+@extends('dashboard::index', ['title' => 'إضافة مدير'])
 @section('content')
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -105,21 +105,23 @@
                                         ])
                                             placeholder="اختر حالة هذا الموظف">
                                             <option value="active" @selected(old('status') == 'active')>حساب فعال</option>
-                                            <option value="inactive" @selected(old('status') == 'inactive')>حساب غير فعال</option>
+                                            <option value="inactive" @selected(old('status') == 'inactive')>حساب غير فعال
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="mb-5">
-                                    @include('shared::layouts.forms.lables.lable', ['lable' => 'دور المدير'])
+                                        @include('shared::layouts.forms.lables.lable', ['lable' => 'دور المدير'])
 
                                         <select data-control="select2" name="role_ids[]" @class([
                                             'form-select',
                                             'form-select-solid ',
                                             'is-invalid' => $errors->has('role_ids'),
-                                        ])
-                                            multiple placeholder="اختر دور هذا المدير">
-                                            @foreach ($roles??[] as $role)
+                                        ]) multiple
+                                            placeholder="اختر دور هذا المدير">
+                                            @foreach ($roles as $role)
                                                 <option value="{{ $role->id }}" @if (old('role_ids') && in_array($role->id, old('role_ids'))) selected @endif>
-                                                    {{ $role->name }}</option>
+                                                    {{ __( $role->name)}}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>

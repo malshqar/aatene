@@ -128,6 +128,21 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="mb-5">
+                                        @include('shared::layouts.forms.lables.lable', ['lable' => 'دور المدير'])
+
+                                        <select data-control="select2" name="role_ids[]" @class([
+                                            'form-select',
+                                            'form-select-solid ',
+                                            'is-invalid' => $errors->has('role_ids'),
+                                        ])
+                                            multiple placeholder="اختر دور هذا الموظف">
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}" @if (in_array($role->name , $admin->role_name??[])) selected @endif>
+                                                    {{ __($role->name) }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                                 <!--begin::Body-->
                                 <!--begin::Footer-->

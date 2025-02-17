@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Admin\Entities\Admin;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -29,19 +30,27 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin::create');
+        $roles = Role::get();
+        return view('admin::create', compact('roles'));
     }
 
     public function store(AdminRequest $request): RedirectResponse
     {
         \DB::transaction(function () use ($request) {
-            $admin = Admin::create($request->validated());
+            $data = $request->validated();
+            foreach ($request->role_ids as $id) {
+                $names[] = Role::findById($id)->name;
+                $data['role_name'] = $names;
+            }
+            $admin = Admin::create($data);
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
                 $admin->storeImage($path, \Str::slug($file->getClientOriginalName(), '-', 'ar'));
             }
-
+            foreach ($names as $role) {
+                $admin->assignRole($role);
+            }
         });
         return back()->with(['notification' => 'تمت اضافة مدير جديد بنجاح']);
     }
@@ -63,7 +72,8 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        return view('admin::edit', compact('admin'));
+        $roles = Role::get();
+        return view('admin::edit', compact('admin', 'roles'));
     }
 
 
@@ -73,12 +83,19 @@ class AdminController extends Controller
         if (empty($data['password'])) {
             $data = $request->except('password');
         }
-        \DB::transaction(function () use ($request, $admin, $data) {
+        foreach ($request->role_ids??[] as $id) {
+            $names[] = Role::findById($id)->name;
+            $data['role_name'] = $names;
+        }
+        \DB::transaction(function () use ($request, $admin, $data, $names) {
             $admin->update($data);
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
                 $admin->updateImage($path, \Str::slug($file->getClientOriginalName()));
+            }
+            foreach ($names as $role) {
+                $admin->assignRole($role);
             }
         });
         return to_route('dashboard.admins.index')->with(['notification' => " تم تعديل بيانات $admin->name بنجاح"]);

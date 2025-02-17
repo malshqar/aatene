@@ -1,6 +1,7 @@
-@props(['name', 'reload' => false,])
+@props(['name', 'reload' => false,'closest'=>'tr'])
 
 <script>
+    let closest = "{{$closest}}";
     function confirmDestroy(uri, reference) {
         console.log(uri);
         Swal.fire({
@@ -25,8 +26,8 @@
             .then(function (response) {
                 // handle success
                 console.log(response);
-                if (reference.closest('tr')) {
-                    reference.closest('tr').remove();
+                if (reference.closest(closest)) {
+                    reference.closest(closest).remove();
                 }
                 showMessage(response.data)
                 setTimeout(() => {
