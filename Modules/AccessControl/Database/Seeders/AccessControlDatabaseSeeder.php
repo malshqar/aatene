@@ -36,18 +36,34 @@ class AccessControlDatabaseSeeder extends Seeder
             'user.delete',
             'user.ban',
             'user.cancel.ban',
+            //sellers table permissions
+            'seller.index',
+            'seller.create',
+            'seller.show',
+            'seller.edit',
+            'seller.delete',
+            'seller.ban',
+            'seller.cancel.ban',
             // admins table permissions
             'admin.index',
             'admin.create',
             'admin.show',
             'admin.edit',
             'admin.delete',
+            // roles table permissions
+            'role.index',
+            'role.create',
+            'role.show',
+            'role.edit',
+            'role.delete',
         ];
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission,'module_name' => 'Admin','guard_name'=>'admin']);
         }
         $role = Role::create(['name' => 'super_admin','guard_name'=>'admin']);
+        // $role = Role::first();
+        
         $role->givePermissionTo(Permission::all());
     }
 }

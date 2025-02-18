@@ -14,10 +14,10 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:admins.index')->only('index');
-        $this->middleware('can:admins.create')->only('create');
-        $this->middleware('can:admins.edit')->only('edit');
-        $this->middleware('can:admins.delete')->only('destroy');
+        $this->middleware('can:admin.index')->only('index');
+        $this->middleware('can:admin.create')->only('create');
+        $this->middleware('can:admin.edit')->only('edit');
+        $this->middleware('can:admin.delete')->only('destroy');
     }
     /**
      * Display a listing of the resource.

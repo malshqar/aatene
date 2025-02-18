@@ -13,6 +13,6 @@ use Modules\AccessControl\Http\Controllers\RolesController;
 |
 */
 
-Route::prefix('dashboard')->name('dashboard.')->group(function () {
+Route::middleware('auth:admin')->prefix('dashboard')->name('dashboard.')->group(function () {
     Route::resource('/roles', RolesController::class);
 });

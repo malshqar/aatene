@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Dashboard\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,6 @@
 |
 */
 
-Route::prefix('dashboard')->name('dashboard.')->group(function() {
-    Route::get('/', 'DashboardController@index')->name('index');
+Route::middleware('auth:admin')->prefix('dashboard')->name('dashboard.')->group(function() {
+    Route::get('/', [DashboardController::class,'index'])->name('index');
 });

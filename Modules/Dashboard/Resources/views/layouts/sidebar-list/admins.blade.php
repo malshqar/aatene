@@ -1,4 +1,4 @@
-@can('admins.index')
+@can('admin.index')
 <!--begin:Menu item-->
 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
     <!--begin:Menu link-->
@@ -32,7 +32,7 @@
             <!--end:Menu link-->
         </div>
         <!--end:Menu item-->
-        @can('admins.create')
+        @can('admin.create')
         <!--begin:Menu item-->
         <div class="menu-item">
             <!--begin:Menu link-->

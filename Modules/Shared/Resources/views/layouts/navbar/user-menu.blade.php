@@ -4,7 +4,7 @@
     <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
          data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
          data-kt-menu-placement="bottom-end">
-        <img src="{{ asset('assets/media/avatars/300-1.jpg') }}" alt="user"/>
+        <img src="{{ auth()->user()->assets['url'] }}" alt="user"/>
     </div>
     <!--begin::User account menu-->
     <div
@@ -15,15 +15,15 @@
             <div class="menu-content d-flex align-items-center px-3">
                 <!--begin::Avatar-->
                 <div class="symbol symbol-50px me-5">
-                    <img alt="Logo" src="{{ asset('assets/media/avatars/300-1.jpg') }}"/>
+                    <img alt="Logo" src="{{ auth()->user()->assets['url'] }}"/>
                 </div>
                 <!--end::Avatar-->
                 @auth
                     <!--begin::Username-->
                     <div class="d-flex flex-column">
-                        <div class="fw-bold d-flex align-items-center fs-5"></div>
+                        <div class="fw-bold d-flex align-items-center fs-5">{{ auth()->user()->name}}</div>
                         <a href="#"
-                           class="fw-semibold text-muted text-hover-primary fs-7"></a>
+                           class="fw-semibold text-muted text-hover-primary fs-7">{{ auth()->user()->email}}</a>
                     </div>
                     <!--end::Username-->
                 @endauth
@@ -37,7 +37,7 @@
         <!--begin::Menu item-->
         <div class="menu-item px-5">
 
-            <form action="" method="POST">
+            <form action="{{route('logout')}}" method="POST">
                 @csrf
                 <a href="" onclick="event.preventDefault(); this.closest('form').submit()"
                    class="menu-link px-5">تسجيل خروج</a>

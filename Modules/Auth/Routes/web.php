@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,6 @@
 |
 */
 
-Route::prefix('auth')->group(function() {
-    Route::get('/', 'AuthController@index');
-});
+Fortify::registerView(fn() => view('auth::register'));
+Fortify::loginView(fn() => view('auth::login'));
+

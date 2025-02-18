@@ -15,12 +15,12 @@ class SellerController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('can:sellers.index')->only('index');
-        // $this->middleware('can:sellers.create')->only('create');
-        // $this->middleware('can:sellers.edit')->only('edit');
-        // $this->middleware('can:sellers.delete')->only('destroy');
-        // $this->middleware('can:sellers.ban')->only('blocked','ban');
-        // $this->middleware('can:sellers.ban-cancel')->only('cancelBan');
+        $this->middleware('can:seller.index')->only('index');
+        $this->middleware('can:seller.create')->only('create');
+        $this->middleware('can:seller.edit')->only('edit');
+        $this->middleware('can:seller.delete')->only('destroy');
+        $this->middleware('can:seller.ban')->only('blocked','ban');
+        $this->middleware('can:seller.ban-cancel')->only('cancelBan');
     }
 
     public function index()

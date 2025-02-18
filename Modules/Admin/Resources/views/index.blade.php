@@ -20,7 +20,7 @@
                                 @include('admin::_filters')
                             </div>
                             <div class="card-toolbar">
-                                @can('admins.create')
+                                @can('admin.create')
                                     <a href="{{ route('dashboard.admins.create') }}" class="btn btn-sm btn-light-primary fs-3">
                                         <i class="ki-duotone ki-plus "></i>اضافة مدير </a>
                                 @endcan
@@ -91,7 +91,7 @@
                                                         class="fs-5 fw-bold">{{ \Carbon\Carbon::parse($admin->last_active_at)->diffForHumans() }}</span>
                                                 </td>
                                                 <td class="text-end">
-                                                    @can('admins.edit')
+                                                    @can('admin.edit')
                                                     <a href="{{ route('dashboard.admins.edit', $admin->id) }}"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                         <i class="ki-duotone ki-pencil fs-2">
@@ -100,7 +100,7 @@
                                                         </i>
                                                     </a>
                                                     @endcan
-                                                    @can('admins.delete')
+                                                    @can('admin.delete')
                                                     <a onclick="confirmDestroy('{{ route('dashboard.admins.destroy', $admin->id) }}', this)"
                                                         class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                                         <i class="ki-duotone ki-trash fs-2">

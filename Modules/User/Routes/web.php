@@ -13,7 +13,7 @@ use Modules\User\Http\Controllers\UserController;
 |
 */
 
-Route::prefix('dashboard')->name('dashboard.')->group(function() {
+Route::middleware('auth:admin')->prefix('dashboard')->name('dashboard.')->group(function() {
     // Route::get('/', 'UserController@index');
     Route::get('/users/ban/{user}',[UserController::class,'ban'])->name('users.ban');
     Route::post('/users/blocked/{user}',[UserController::class,'blocked'])->name('users.blocked');

@@ -2,8 +2,20 @@
 
 namespace Modules\Auth\Providers;
 
+use Laravel\Fortify\FortifyServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Auth\Actions\Fortify\AuthenticatedSession;
+use Modules\Auth\Actions\Fortify\Authentication;
+use Modules\Auth\Actions\Fortify\CreateNewUser;
+use Modules\Auth\Actions\Fortify\ResetUserPassword;
+use Modules\Auth\Actions\Fortify\UpdateUserPassword;
+use Modules\Auth\Actions\Fortify\UpdateUserProfileInformation;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
+use Laravel\Fortify\Fortify;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,6 +29,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'auth';
 
+    const HOME = '/dashboard';
     /**
      * Boot the application events.
      *
@@ -28,6 +41,22 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        Fortify::createUsersUsing(CreateNewUser::class);
+        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
+        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
+        Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
+        // Fortify::authenticateUsing([ new Authentication,'login']);
+
+        RateLimiter::for('login', function (Request $request) {
+            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
+
+            return Limit::perMinute(5)->by($throttleKey);
+        });
+
+        RateLimiter::for('two-factor', function (Request $request) {
+            return Limit::perMinute(5)->by($request->session()->get('login.id'));
+        });
     }
 
     /**
@@ -37,7 +66,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(FortifyServiceProvider::class);
+
     }
 
     /**
@@ -51,7 +83,8 @@ class AuthServiceProvider extends ServiceProvider
             module_path($this->moduleName, 'Config/config.php') => config_path($this->moduleNameLower . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
+            module_path($this->moduleName, 'Config/config.php'),
+            $this->moduleNameLower
         );
     }
 
@@ -111,4 +144,6 @@ class AuthServiceProvider extends ServiceProvider
         }
         return $paths;
     }
+
+
 }

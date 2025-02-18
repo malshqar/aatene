@@ -17,12 +17,12 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:users.index')->only('index');
-        $this->middleware('can:users.create')->only('create');
-        $this->middleware('can:users.edit')->only('edit');
-        $this->middleware('can:users.delete')->only('destroy');
-        $this->middleware('can:users.ban')->only('blocked','ban');
-        $this->middleware('can:users.ban-cancel')->only('cancelBan');
+        $this->middleware('can:user.index')->only('index');
+        $this->middleware('can:user.create')->only('create');
+        $this->middleware('can:user.edit')->only('edit');
+        $this->middleware('can:user.delete')->only('destroy');
+        $this->middleware('can:user.ban')->only('blocked','ban');
+        $this->middleware('can:user.ban-cancel')->only('cancelBan');
     }
     /**
      * Display a listing of the resource.

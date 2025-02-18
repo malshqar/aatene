@@ -20,7 +20,7 @@
                                 @include('seller::_filters')
                             </div>
                             <div class="card-toolbar">
-                                @can('sellers.create')
+                                @can('seller.create')
                                     <a href="{{ route('dashboard.sellers.create') }}" class="btn btn-sm btn-light-primary fs-3">
                                         <i class="ki-duotone ki-plus "></i>اضافة بائع </a>
                                 @endcan
@@ -42,7 +42,7 @@
                                             <th class="min-w-100px">الحالة</th>
                                             <th class="min-w-50px">تاريخ الانضمام</th>
                                             <th class="min-w-50px">اخر عملية تسجيل دخول</th>
-                                            @canany(['sellers.edit', 'sellers.ban', 'sellers.delete'])
+                                            @canany(['seller.edit', 'seller.ban', 'seller.delete'])
                                                 <th class="min-w-100px text-end rounded-end px-5">العمليات</th>
                                             @endcanany
                                         </tr>
@@ -90,16 +90,16 @@
                                                     <span
                                                         class="fs-5 fw-bold">{{ \Carbon\Carbon::parse($seller->last_active_at)->diffForHumans() }}</span>
                                                 </td>
-                                                @canany(['sellers.edit', 'sellers.ban', 'sellers.delete'])
+                                                @canany(['seller.edit', 'seller.ban', 'seller.delete'])
 
                                                     <td class="text-end">
-                                                        @can('sellers.ban')
+                                                        @can('seller.ban')
                                                             <a href="{{ route('dashboard.sellers.ban', $seller->id) }}"
                                                                 class="btn btn-icon btn-bg-light {{ is_null($seller->ban_at) ? 'btn-active-color-primary' : 'btn-color-danger ' }} btn-sm me-1">
                                                                 <i class="fa-sharp-duotone fa-solid fa-ban fs-2"></i>
                                                             </a>
                                                         @endcan 
-                                                        @can('sellers.edit')
+                                                        @can('seller.edit')
                                                             <a href="{{ route('dashboard.sellers.edit', $seller->id) }}"
                                                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                                 <i class="ki-duotone ki-pencil fs-2">
@@ -108,7 +108,7 @@
                                                                 </i>
                                                             </a>
                                                         @endcan 
-                                                        @can('sellers.delete')
+                                                        @can('seller.delete')
                                                             <a onclick="confirmDestroy('{{ route('dashboard.sellers.destroy', $seller->id) }}', this)"
                                                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                                                 <i class="ki-duotone ki-trash fs-2">
