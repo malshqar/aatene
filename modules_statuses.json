@@ -9,5 +9,6 @@
     "Dashboard": true,
     "StoreDashboard": true,
     "Photo": true,
-    "AccessControl": true
+    "AccessControl": true,
+    "Auth": true
 }
