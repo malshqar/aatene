@@ -28,7 +28,7 @@ class SellerController extends Controller
 
         $filters = request()->query();
         $count = (int) request()->query('count');
-        $sellers = Seller::filters($filters)->latest()->paginate($count == 0 ? 7 : $count);
+        $sellers = Seller::filters($filters)->latest()->paginate(($count == 0 && $count >= 100) ? 7 : $count);
         return view('seller::index', compact('sellers'));
     }
 

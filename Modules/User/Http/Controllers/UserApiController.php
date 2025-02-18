@@ -14,17 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 class UserApiController extends Controller
 {
 
-    public function index(): AnonymousResourceCollection
+    public function index(): JsonResponse
     {
         $filters = request()->query();
         $count = (int) request()->query('count');
-        $users = User::activeUseres()->filters($filters)->paginate($count == 0 ? 7 : $count);
-        return UserResource::collection($users);
+        $users = User::activeUseres()->filters($filters)->paginate((($count == 0 && $count >= 100) && $count > 100) ? 7 : $count);
+        return response()->json(UserResource::collection($users));
     }
 
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
-        return (new UserResource($user));
+        return response()->json((new UserResource($user)));
     }
 
 

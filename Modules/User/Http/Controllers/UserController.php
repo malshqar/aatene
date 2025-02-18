@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $filters = request()->query();
         $count = (int) request()->query('count');
-        $users = User::filters($filters)->latest()->paginate($count == 0 ? 7 : $count);
+        $users = User::filters($filters)->latest()->paginate(($count == 0 && $count >= 100) ? 7 : $count);
         return view('user::index', compact('users'));
     }
 
