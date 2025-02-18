@@ -4,6 +4,7 @@
     @includeWhen(Module::find('user')->isEnabled(), 'dashboard::layouts.sidebar-list.users')
     @includeWhen(Module::find('admin')->isEnabled(), 'dashboard::layouts.sidebar-list.admins')
     @includeWhen(Module::find('accesscontrol')->isEnabled(), 'dashboard::layouts.sidebar-list.access-control')
+    @includeWhen(Module::find('seller')->isEnabled(), 'dashboard::layouts.sidebar-list.sellers')
 @endpush
 @section('content')
     <div class="p-20">

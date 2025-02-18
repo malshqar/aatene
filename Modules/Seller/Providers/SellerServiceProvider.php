@@ -2,8 +2,13 @@
 
 namespace Modules\Seller\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Seller\Events\SellerBlocked;
+use Modules\Seller\Events\SellerCancelBlocked;
+use Modules\Seller\Listeners\SendBlockedCancelNotification;
+use Modules\Seller\Listeners\SendBlockedNotification;
 
 class SellerServiceProvider extends ServiceProvider
 {
@@ -24,6 +29,14 @@ class SellerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen(
+            SellerBlocked::class,
+            SendBlockedNotification::class,
+        );
+        Event::listen(
+            SellerCancelBlocked::class,
+            SendBlockedCancelNotification::class,
+        );
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();

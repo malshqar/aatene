@@ -7,8 +7,6 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Validation\Rule;
-use Modules\User\Emails\UserBlockedMail;
 use Modules\User\Entities\User;
 use Modules\User\Events\UserBlocked;
 use Modules\User\Events\UserCancelBlocked;

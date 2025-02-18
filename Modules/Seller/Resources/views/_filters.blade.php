@@ -1,4 +1,4 @@
-<form action="{{ route('dashboard.admins.index') }}">
+<form action="{{ route('dashboard.sellers.index') }}">
     <div class="card-toolbar d-flex align-items-center">
         <!--begin::Input group-->
         <div class="position-relative w-lg-300px w-md-150px me-md-2">
@@ -13,8 +13,8 @@
             <!--begin::Select-->
             <select name="status" data-control="select2" data-hide-search="true" data-placeholder="الحالة"
                 class="form-select form-select-sm border-body bg-body w-150px me-5">
-                <option value="active" @selected(request()->query('status') == 'active')>مدير نشط</option>
-                <option value="inactive" @selected(request()->query('status') == 'inactive')> مدير في إجازة
+                <option value="active" @selected(request()->query('status') == 'active')>مستخدم نشط</option>
+                <option value="inactive" @selected(request()->query('status') == 'inactive')> مستخدم في إجازة
                 </option>
             </select>
             <!--end::Select-->
@@ -40,7 +40,7 @@
                 </i>
                 فلترة
             </button>
-            <a href="{{ route('dashboard.admins.index') }}" class="btn btn-sm btn-light-primary btn-icon fs-3 me-5">
+            <a href="{{ route('dashboard.sellers.index') }}" class="btn btn-sm btn-light-primary btn-icon fs-3 me-5">
                 <i class="ki-duotone ki-cross-circle fs-2">
                     <i class="path1"></i>
                     <i class="path2"></i>
