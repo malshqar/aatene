@@ -1,10 +1,8 @@
 <div style="background-color:#D5D9E2; --kt-scrollbar-color: #d9d0cc; --kt-scrollbar-hover-color: #d9d0cc padding:20px">
 
-
     <!--begin::Email template-->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@200..1000&display=swap');
-
         html,
         body {
             padding: 0;
@@ -89,7 +87,7 @@
                             <p
                                 style="color:#181C32; font-size: 16px; font-weight: 600; margin-bottom:9px                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ">
                                 تحياتي!</p>
-                            <p style="margin-bottom:4px">يمكنك الوصول إلينا على<a href="{{url('/')}}" rel="noopener"
+                            <p style="margin-bottom:4px">يمكنك الوصول إلينا منصة<a href="{{url('/')}}" rel="noopener"
                                     target="_blank" style="font-weight: 600">{{request()->HttpHost()}}</a>.
                             </p>
 

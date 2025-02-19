@@ -22,7 +22,7 @@ class UserController extends Controller
         $this->middleware('can:user.edit')->only('edit');
         $this->middleware('can:user.delete')->only('destroy');
         $this->middleware('can:user.ban')->only('blocked','ban');
-        $this->middleware('can:user.ban-cancel')->only('cancelBan');
+        $this->middleware('can:user.cancel.ban')->only('cancelBan');
     }
     /**
      * Display a listing of the resource.

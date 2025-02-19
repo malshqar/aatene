@@ -42,11 +42,13 @@ class SellerBlockedNotifications extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting("مرحبا بك $notifiable->name")
-            ->line("لقد تم حظر حسابك بسبب انك  : $notifiable->ban_reason")
-            ->line("الوقت المتبقي حتى انتهاء هذا الحظر هو : {$notifiable->ban_at->diffForHumans()}")
-            ->action('الدعم الفني', url('/'))
-            ->line('شكرا لك لإستخدام طبيقنا!');
+        ->view('seller::emails.ban')
+        ->subject('!لقد تم حظر حسابك')
+        ->greeting("مرحبا بك $notifiable->name")
+        ->line("لقد تم حظر حسابك    : $notifiable->ban_reason")
+        ->line("الوقت المتبقي حتى انتهاء  الحظر هو : {$notifiable->ban_at->diffForHumans()}")
+        // ->line("ملاحظة في حال حظر حسابك لأكثر من مرة سيتم حذفه بشكل تلقائي بعد المرة الثالثة")
+        ->action('الدعم الفني', url('/'));
     }
 
     /**

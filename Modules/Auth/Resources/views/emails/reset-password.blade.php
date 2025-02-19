@@ -2,11 +2,13 @@
 
     <!--begin::Email template-->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@200..1000&display=swap');
+
         html,
         body {
             padding: 0;
             margin: 0;
-            font-family: "Almarai", "serif";
+            font-family: "Almarai", serif;
             direction: rtl;
         }
 
@@ -14,7 +16,13 @@
             color: #009ef7;
         }
     </style>
-
+    <!--begin:Logo-->
+    <div style="margin-bottom: 10px; padding-top:35px; display:flex; justify-content:center;">
+        <a href="{{url('/')}}" rel="noopener" target="_blank">
+            <img alt="Logo" src="{{ asset('assets/media/aatene-logo.png') }}" style="height: 35px" />
+        </a>
+    </div>
+    <!--end:Logo-->
     <div id="#kt_app_body_content"
         style="background-color:#D5D9E2; font-family:Arial,Helvetica,sans-serif; line-height: 1.5; min-height: 100%; font-weight: normal; font-size: 15px; color: #2F3044; margin:0; padding:0; width:100%;">
         <div

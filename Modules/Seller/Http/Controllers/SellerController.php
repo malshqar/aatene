@@ -20,7 +20,7 @@ class SellerController extends Controller
         $this->middleware('can:seller.edit')->only('edit');
         $this->middleware('can:seller.delete')->only('destroy');
         $this->middleware('can:seller.ban')->only('blocked','ban');
-        $this->middleware('can:seller.ban-cancel')->only('cancelBan');
+        $this->middleware('can:seller.cancel.ban')->only('cancelBan');
     }
 
     public function index()

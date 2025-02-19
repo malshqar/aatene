@@ -42,10 +42,13 @@ class SellerBlockedCancelNotifications extends Notification implements ShouldQue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+        ->view('user::emails.ban')
+        ->subject('!لقد تم إلغاء حظر حسابك')
         ->greeting("مرحبا بك $notifiable->name")
-        ->line("لقد تم إلغاء حظر حسابك استمتتع بتصفح التطبيق")
-        ->action(config('app.name'), url('/'))
-        ->line('شكرا لك لإستخدام طبيقنا!');
+        ->line("لقد تم إلغاء حظر حسابك ")
+        ->line("الرجاء الإلتزام بقواعد وتعليمات المنصة، نتمنى لك تصفح ممتع")
+        // ->line("ملاحظة في حال حظر حسابك لأكثر من مرة سيتم حذفه بشكل تلقائي بعد المرة الثالثة")
+        ->action('الدعم الفني', url('/'));
     }
 
     /**
