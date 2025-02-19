@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/home', function () {
-
-//     return view('dashboard::index');
-// })->name('home');
+Route::get('/', function () {
+    return view('landing');
+})->name('home');
