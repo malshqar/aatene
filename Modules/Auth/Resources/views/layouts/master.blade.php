@@ -62,14 +62,14 @@
             <!--begin::Aside-->
             <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
                 <!--begin::Aside-->
-                <div class="d-flex flex-center  flex-column">
+                <div class="d-flex flex-center flex-column mt-5" >
                     <!--begin::Logo-->
                     <a href="{{ url(path: '/') }}" class="mb-7">
                         <img alt="Logo" src="{{ asset('assets/media/aatene-light.png') }}" width="250" />
                     </a>
                     <!--end::Logo-->
                     <!--begin::Title-->
-                    <h2 class="text-white text-center fw-normal m-0 fs-4 w-75">{{ config('app.description') }}</h2>
+                    <h2 class="text-white text-center fw-normal m-0 fs-4 ">{{ config('app.description') }}</h2>
                     <!--end::Title-->
 
                 </div>

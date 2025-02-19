@@ -22,7 +22,7 @@
                                 <div class="card-header">
                                     <!--begin::Card title-->
                                     <div class="card-title">
-                                        <h2 class="mb-0">{{ $role->name }}</h2>
+                                        <h2 class="mb-0">{{ __($role->name) }}</h2>
                                     </div>
                                     <!--end::Card title-->
                                 </div>
@@ -33,7 +33,7 @@
                                     <div class="d-flex flex-column text-gray-600">
                                         @foreach ($role->permissions()->take(10)->get() as $permission)
                                             <div class="d-flex align-items-center py-2">
-                                                <span class="bullet bg-primary me-3"></span>{{ $permission->name }}
+                                                <span class="bullet bg-primary me-3"></span>{{ __('permissions.'.$permission->name) }}
                                             </div>
                                         @endforeach
                                         <div class='d-flex align-items-center py-2'>
