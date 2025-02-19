@@ -1,4 +1,4 @@
-@extends('dashboard::index',['title'=>'اضافة مستخدم'])
+@extends('dashboard::index', ['title' => 'اضافة مستخدم'])
 @section('content')
     <!--begin::Main-->
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -63,7 +63,7 @@
                                         @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'email', 'lable' => 'بريد المستخدم', 'placeholder' => 'أدخل بريد المستخدم'])
                                     </div>
                                     <div class="mb-5">
-                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number', 'lable' => 'رقم هاتف المستخدم', 'placeholder' => 'أدخل رقم هاتف المستخدم'])
+                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number','id'=>'phone_number', 'lable' => 'رقم هاتف المستخدم', 'placeholder' => 'أدخل رقم هاتف المستخدم'])
                                         <!--begin::Hint-->
                                         <div class="text-muted">
                                             يجب ان يتبع رقم الهاتف هذا التنسيق (+1 123 456 7890)
@@ -105,7 +105,8 @@
                                         ])
                                             placeholder="اختر حالة هذا الموظف">
                                             <option value="active" @selected(old('status') == 'active')>حساب فعال</option>
-                                            <option value="inactive" @selected(old('status') == 'inactive')>حساب غير فعال</option>
+                                            <option value="inactive" @selected(old('status') == 'inactive')>حساب غير فعال
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -134,6 +135,12 @@
         <!--begin::Vendors Javascript(used for this page only)-->
         <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <!--end::Vendors Javascript-->
+        <script>
+            Inputmask({
+                "mask": "+1 999 999 9999"
+            }).mask("#phone_number");
+           
+        </script>
     @endpush
-    
+
 @endsection

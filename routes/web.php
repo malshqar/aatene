@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 })->name('home');
+
+Route::get('/emails', function () {
+    return view('emails.reset-password');
+});

@@ -63,7 +63,7 @@
                                         @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'email', 'lable' => 'بريد المدير', 'placeholder' => 'أدخل بريد المدير'])
                                     </div>
                                     <div class="mb-5">
-                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number', 'lable' => 'رقم هاتف المدير', 'placeholder' => 'أدخل رقم هاتف المدير'])
+                                        @include('shared::layouts.forms.inputs.input-with-lable', ['name' => 'phone_number','id'=>'phone_number', 'lable' => 'رقم هاتف المدير', 'placeholder' => 'أدخل رقم هاتف المدير'])
                                         <!--begin::Hint-->
                                         <div class="text-muted">
                                             يجب ان يتبع رقم الهاتف هذا التنسيق (+1 123 456 7890)
@@ -152,5 +152,11 @@
         <!--begin::Vendors Javascript(used for this page only)-->
         <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <!--end::Vendors Javascript-->
+        <script>
+            Inputmask({
+                "mask": "+1 999 999 9999"
+            }).mask("#phone_number");
+       
+        </script>
     @endpush
 @endsection

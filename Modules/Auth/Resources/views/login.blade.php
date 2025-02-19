@@ -1,7 +1,6 @@
 @extends('auth::layouts.master')
 
 @section('content')
-{{config('fortify.guard')}}
     <!--begin::Body-->
     <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12 p-lg-20">
         <!--begin::Card-->
@@ -45,7 +44,7 @@
                     <!--begin::Wrapper-->
                     <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                         <!--begin::Link-->
-                        <a href="/metronic8/demo1/authentication/layouts/creative/reset-password.html" class="link-primary">
+                        <a href="{{route('password.request')}}" class="link-primary">
                             هل نسيت كلمة السر؟
                         </a>
                         <!--end::Link-->

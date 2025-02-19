@@ -80,7 +80,7 @@
                                     <div class="mb-5">
                                         @include(
                                             'shared::layouts.forms.inputs.input-with-lable',
-                                            ['name' => 'phone_number', 'lable' => 'رقم هاتف المدير', 'placeholder' => 'أدخل رقم هاتف المدير', 'value' => $admin->phone_number]
+                                            ['name' => 'phone_number','id'=>'phone_number', 'lable' => 'رقم هاتف المدير', 'placeholder' => 'أدخل رقم هاتف المدير', 'value' => $admin->phone_number]
                                         )
                                         <!--begin::Hint-->
                                         <div class="text-muted">
@@ -169,5 +169,11 @@
         <!--begin::Vendors Javascript(used for this page only)-->
         <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
         <!--end::Vendors Javascript-->
+        <script>
+            Inputmask({
+                "mask": "+1 999 999 9999"
+            }).mask("#phone_number");
+       
+        </script>
     @endpush
 @endsection

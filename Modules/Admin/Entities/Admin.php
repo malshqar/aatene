@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Entities;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
@@ -12,7 +13,7 @@ use Modules\Photo\Traits\HasPhoto;
 use Spatie\Permission\Traits\HasRoles;
 
 
-class Admin extends User
+class Admin extends User implements MustVerifyEmail
 {
     use HasFactory, HasApiTokens,  HasRoles, HasPhoto, Notifiable, HasScopes;
 

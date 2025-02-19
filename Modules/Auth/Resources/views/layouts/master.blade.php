@@ -11,7 +11,9 @@
     @include('shared::layouts.assets.img.icon')
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@200..1000&display=swap" rel="stylesheet">    <!--end::Fonts-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Cairo:wght@200..1000&display=swap"
+        rel="stylesheet"> <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -27,12 +29,12 @@
     @stack('styles')
 
 </head>
-    <style>
-        body {
-            direction: rtl;
-            font-family: "Almarai", serif !important;
-        }
-    </style>
+<style>
+    body {
+        direction: rtl;
+        font-family: "Almarai", serif !important;
+    }
+</style>
 
 <!--end::Head-->
 <!--begin::Body-->
@@ -47,7 +49,7 @@
         <!--begin::Page bg image-->
         <style>
             body {
-                background-image: url('assets/media/auth/bg4.jpg');
+                background-image: url('assets/media/auth/bg9.jpg');
             }
 
             [data-bs-theme="dark"] body {
@@ -60,16 +62,16 @@
             <!--begin::Aside-->
             <div class="d-flex flex-center w-lg-50 pt-15 pt-lg-0 px-10">
                 <!--begin::Aside-->
-                <div class="d-flex flex-center flex-lg-start flex-column">
+                <div class="d-flex flex-center  flex-column">
                     <!--begin::Logo-->
-                    <a href="{{ url('/') }}" class="mb-7">
+                    <a href="{{ url(path: '/') }}" class="mb-7">
                         <img alt="Logo" src="{{ asset('assets/media/aatene-light.png') }}" width="250" />
                     </a>
                     <!--end::Logo-->
                     <!--begin::Title-->
-                    <h2 class="text-white fw-normal m-0 fs-1">{{ config('app.description') }}</h2>
+                    <h2 class="text-white text-center fw-normal m-0 fs-4 w-75">{{ config('app.description') }}</h2>
                     <!--end::Title-->
-                    
+
                 </div>
                 <!--begin::Aside-->
             </div>

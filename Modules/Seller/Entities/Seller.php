@@ -2,14 +2,15 @@
 
 namespace Modules\Seller\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Traits\HasScopes;
 
-class Seller extends Model
+class Seller extends User implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasPhoto, HasScopes;
 

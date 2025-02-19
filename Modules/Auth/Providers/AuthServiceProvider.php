@@ -2,9 +2,13 @@
 
 namespace Modules\Auth\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Laravel\Fortify\FortifyServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Laravel\Fortify\Http\Responses\EmailVerificationNotificationSentResponse;
 use Modules\Auth\Actions\Fortify\AuthenticatedSession;
 use Modules\Auth\Actions\Fortify\Authentication;
 use Modules\Auth\Actions\Fortify\CreateNewUser;
@@ -16,6 +20,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Modules\Auth\Notifications\CustomResetPasswordNotifications;
+use Modules\Auth\Notifications\CustomVerifyEmail;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -29,7 +35,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $moduleNameLower = 'auth';
 
-    const HOME = '/dashboard';
     /**
      * Boot the application events.
      *
@@ -47,7 +52,28 @@ class AuthServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         // Fortify::authenticateUsing([ new Authentication,'login']);
+        Fortify::requestPasswordResetLinkView(function () {
+            return view('auth::forgot-password');
+        });
 
+        Fortify::verifyEmailView(function () {
+            return view('auth::verify-email');
+        });
+
+       
+
+        Fortify::resetPasswordView(function (Request $request) {
+            return view('auth::reset-password', ['request' => $request]);
+        });
+
+        ResetPassword::toMailUsing(function ($notifiable, $token) {
+            return (new CustomResetPasswordNotifications($token))->toMail($notifiable);
+        });
+
+        VerifyEmail::toMailUsing(function ($notifiable) {
+            return (new CustomVerifyEmail)->toMail($notifiable);
+        });
+        
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
 

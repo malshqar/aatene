@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -65,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
         foreach ($modules as $module) {
             $modulePath = base_path("Modules/{$module}/Routes/web.php");
             if (file_exists($modulePath)) {
-                Route::middleware(['web','auth:admin'])
+                Route::middleware(['web','auth:admin','verified'])
                     ->prefix('dashboard')
                     ->name('dashboard.')
                     ->namespace("Modules\\{$module}\\Http\\Controllers")
