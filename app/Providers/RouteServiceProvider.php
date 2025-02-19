@@ -36,7 +36,42 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+        $this->mapApiModuleRoutes(); // Add this line
+        $this->mapWebDashboardModuleRoutes(); // Add this line
 
 
     }
+
+    protected function mapApiModuleRoutes()
+    {
+        $modules = ['User', 'Admin', 'AccessControl', 'Seller']; // Replace with your module names
+
+        foreach ($modules as $module) {
+            $modulePath = base_path("Modules/{$module}/Routes/api.php");
+
+            if (file_exists($modulePath)) {
+                Route::prefix('api/v1') // Add 'api/v1' prefix here
+                    ->middleware('api')
+                    ->namespace("Modules\\{$module}\\Http\\Controllers")
+                    ->group($modulePath);
+            }
+        }
+    }
+
+    protected function mapWebDashboardModuleRoutes()
+    {
+        $modules = ['User', 'Admin', 'AccessControl', 'Seller','Dashboard']; // An array of your module names, if you have such a configuration
+
+        foreach ($modules as $module) {
+            $modulePath = base_path("Modules/{$module}/Routes/web.php");
+            if (file_exists($modulePath)) {
+                Route::middleware(['web','auth:admin'])
+                    ->prefix('dashboard')
+                    ->name('dashboard.')
+                    ->namespace("Modules\\{$module}\\Http\\Controllers")
+                    ->group($modulePath);
+            }
+        }
+    }
+
 }

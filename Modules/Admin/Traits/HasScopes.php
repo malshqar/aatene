@@ -41,4 +41,9 @@ trait HasScopes
     {
         $builder->whereNotNull('ban_at');
     }
+
+    public function ScopeSkipAuth(Builder $builder)
+    {
+        $builder->where('id','<>',auth()->id());
+    }
 }

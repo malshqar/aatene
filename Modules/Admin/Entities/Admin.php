@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Entities;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
@@ -14,6 +15,10 @@ use Spatie\Permission\Traits\HasRoles;
 class Admin extends User
 {
     use HasFactory, HasApiTokens,  HasRoles, HasPhoto, Notifiable, HasScopes;
+
+        /**
+     * The "booted" method of the model.
+     */
 
     protected $fillable = [
         'name',

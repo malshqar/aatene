@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $request = request();
         if ($request->is('api/*')) {
-            config()->set("auth.guards.seller.driver", 'jwt');
-            config()->set("auth.guards.admin.driver", 'jwt');
+            // config()->set("auth.guards.seller.driver", 'jwt');
+            // config()->set("auth.guards.admin.driver", 'jwt');
         }
         if (
             ((in_array('dashboard', $request->segments()))

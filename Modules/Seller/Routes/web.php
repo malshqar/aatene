@@ -13,10 +13,8 @@ use Modules\Seller\Http\Controllers\SellerController;
 |
 */
 
-Route::middleware('auth:admin')->prefix('dashboard')->name('dashboard.')->group(function() {
-    Route::get('/sellers/ban/{seller}',[SellerController::class,'ban'])->name('sellers.ban');
-    Route::post('/sellers/blocked/{seller}',[SellerController::class,'blocked'])->name('sellers.blocked');
-    Route::post('/sellers/cancel-ban/{seller}',[SellerController::class,'cancelBan'])->name('sellers.cancel-ban');
-    Route::resource('/sellers',SellerController::class);
-});
+Route::get('/sellers/ban/{seller}', [SellerController::class, 'ban'])->name('sellers.ban');
+Route::post('/sellers/blocked/{seller}', [SellerController::class, 'blocked'])->name('sellers.blocked');
+Route::post('/sellers/cancel-ban/{seller}', [SellerController::class, 'cancelBan'])->name('sellers.cancel-ban');
+Route::resource('/sellers', SellerController::class);
 
