@@ -5,6 +5,7 @@ namespace App\Providers;
 use Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Features;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerFortifyGaurdsConfig();
 
     }
-    
+
     /**
      * Bootstrap any application services.
      */
@@ -39,11 +40,18 @@ class AppServiceProvider extends ServiceProvider
             ((in_array('dashboard', $request->segments()))
                 && ('dashboard' == $request->segments()[0])) || $request->is('dashboard/*')
         ) {
-            $this->HOME = 'dahsboard';
+            config()->set('auth.defaults.guard', 'admin');
             config()->set('fortify.guard', 'admin');
             config()->set('fortify.passwords', 'admins');
             config()->set('fortify.home', '/dashboard');
             config()->set('fortify.prefix', '/dashboard');
+            config()->set('fortify.features', [
+                Features::resetPasswords(),
+                Features::emailVerification(),
+                // Features::updatePasswords(),
+                
+            ]);
+
         }
         if (
             (
@@ -51,11 +59,19 @@ class AppServiceProvider extends ServiceProvider
                     && ('store' == $request->segments()[0])) || $request->is('store/*')
             )
         ) {
+            config()->set('auth.defaults.guard', 'seller');
             config()->set('fortify.guard', 'seller');
             config()->set('fortify.passwords', 'sellers');
-            config()->set('fortify.home', '/store/home');
+            config()->set('fortify.home', '/store');
             config()->set('fortify.prefix', '/store');
+            config()->set('fortify.features', [
+                Features::resetPasswords(),
+                Features::emailVerification(),
+                // Features::registration(),
+                // Features::updatePasswords(),
+                
+            ]);
         }
-       
+
     }
 }

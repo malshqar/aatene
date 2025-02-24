@@ -68,7 +68,7 @@ trait HasPhoto
 
     public static function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
     {
-        $name = time() . '_' . $image->getClientOriginalName();
+        $name = time() . '_' . rand(0, 5) . '_' . $image->getClientOriginalName();
         $path = $image->storeAs("$dir", $name, $disk);
         return $path;
     }
@@ -77,8 +77,7 @@ trait HasPhoto
     {
         $data_images = [];
         foreach ($images as $image) {
-            $name = rand() . time() . $image->getClientOriginalName();
-            $path = $image->storeAs("$dir", $name, $disk);
+            $path = self::uploadOnDisk($images, $dir, $disk);
             $data_images[] = $path;
         }
         return $data_images;
@@ -87,8 +86,12 @@ trait HasPhoto
     public function assets()
     {
         $photo = $this->photo()->get();
-        if (!$photo) {
-            return 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg';
+        if (count($photo) <= 0) {
+            return [
+                'url' => 'https://placehold.co/100?text=No+Img',
+                'type' => 'photo',
+                'slug' => 'empty'
+            ];
         } else if ((count($photo) == 1)) {
             //  $url = Storage::temporaryUrl($photo->src, now()->minutes(120));
             return [

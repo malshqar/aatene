@@ -4,9 +4,11 @@ namespace Modules\Seller\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
-
+use Modules\Photo\Traits\FilesValidationRules;
 class SellerRequest extends FormRequest
 {
+
+    use FilesValidationRules;
 
     /**
      * Get the validation rules that apply to the request.
@@ -33,7 +35,7 @@ class SellerRequest extends FormRequest
                 ],
                 'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:sellers,phone_number,'.$this->seller->id,
                 'status' => 'required|string|in:active,inactive',
-                'avatar' => 'nullable|image',
+                'avatar' => $this->ImageRules(nullable: true),
                 'gold_coins'=>'required|numeric|min:0'
             ];
         }
@@ -54,7 +56,7 @@ class SellerRequest extends FormRequest
             ],
             'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:sellers,phone_number',
             'status' => 'required|string|in:active,inactive',
-            'avatar' => 'required|image',
+            'avatar' => $this->ImageRules(),
             'gold_coins'=>'required|numeric|min:0'
 
         ];

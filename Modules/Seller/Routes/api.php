@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Seller\Http\Controllers\SellerApiController;
+use Modules\Seller\Http\Controllers\SellerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,4 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/seller', function (Request $request) {
     return $request->user();
 });
+Route::post('/seller/store',[SellerApiController::class,'store']);

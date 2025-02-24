@@ -10,5 +10,6 @@
     "StoreDashboard": true,
     "Photo": true,
     "AccessControl": true,
-    "Auth": true
+    "Auth": true,
+    "Store": true
 }

@@ -14,6 +14,7 @@ class StoreDashboardController extends Controller
      */
     public function index()
     {
+      
         return view('storedashboard::index');
     }
 

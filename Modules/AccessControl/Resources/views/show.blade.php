@@ -1,4 +1,4 @@
-@extends('dashboard::index', ['title' => $user->name])
+@extends('dashboard::index', ['title' => $role->name])
 
 @section('content')
     <!--begin::Main-->
@@ -6,7 +6,7 @@
         <!--begin::Content wrapper-->
         <div class="d-flex flex-column flex-column-fluid">
             <!--begin::Toolbar-->
-            @include('shared::layouts.components.elements.toolbar', ['back_url' => 'dashboard.users.index', 'previews' => 'قائمة المستخدمين', 'current' => "$role->name"])
+            @include('shared::layouts.components.elements.toolbar', ['back_url' => 'dashboard.roles.index', 'previews' => 'قائمة الأدوار', 'current' => __($role->name)])
             <!--end::Toolbar-->
             <!--begin::Content-->
             <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -33,7 +33,8 @@
                                     <div class="d-flex flex-column text-gray-600">
                                         @foreach ($role->permissions()->take(10)->get() as $permission)
                                             <div class="d-flex align-items-center py-2">
-                                                <span class="bullet bg-primary me-3"></span>{{ __('permissions.'.$permission->name) }}
+                                                <span
+                                                    class="bullet bg-primary me-3"></span>{{ __('permissions.' . $permission->name) }}
                                             </div>
                                         @endforeach
                                         <div class='d-flex align-items-center py-2'>
@@ -63,7 +64,7 @@
                                     <!--begin::Card title-->
                                     <div class="card-title">
                                         <h2 class="d-flex align-items-center">المدراء اصحاب دور
-                                            {{ __('permissions.' . $role->name) }}
+                                            {{ __( $role->name) }}
                                             <span class="text-gray-600 fs-6 ms-1">({{ $role->users()->count() }})</span>
                                         </h2>
                                     </div>

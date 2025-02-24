@@ -19,7 +19,7 @@ class RolesController extends Controller
      */
     public function index()
     {
-        $roles = Role::get();
+        $roles = Role::where('name','<>','super_admin')->get();
         return view('accesscontrol::index', compact('roles'));
     }
 

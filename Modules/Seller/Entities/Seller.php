@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Traits\HasScopes;
+use Modules\Store\Entities\Store;
 
 class Seller extends User implements MustVerifyEmail
 {
@@ -59,4 +60,8 @@ class Seller extends User implements MustVerifyEmail
         return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
     }
     
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
 }

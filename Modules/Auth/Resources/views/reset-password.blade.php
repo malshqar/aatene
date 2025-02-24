@@ -54,7 +54,7 @@
                     <div class="mb-1">
                         <!--begin::Input wrapper-->
                         <div class="position-relative mb-3">
-                            <input class="form-control bg-transparent" type="password" placeholder="كلمة المرور"
+                            <input class="form-control bg-transparent @error('password') is-invalid @enderror" type="password" placeholder="كلمة المرور"
                                 name="password" autocomplete="off">
 
                             <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
@@ -94,7 +94,7 @@
                 <div class="fv-row mb-8 fv-plugins-icon-container">
                     <!--begin::Repeat Password-->
                     <input type="password" placeholder="كرر كلمة المرور" name="password_confirmation" autocomplete="off"
-                        class="form-control bg-transparent">
+                        class="form-control bg-transparent  @error('password') is-invalid @enderror">
                     <!--end::Repeat Password-->
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                         @error('password')

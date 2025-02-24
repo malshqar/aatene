@@ -4,6 +4,7 @@ namespace Modules\AccessControl\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Admin\Entities\Admin;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -36,6 +37,14 @@ class AccessControlDatabaseSeeder extends Seeder
             'user.delete',
             'user.ban',
             'user.cancel.ban',
+            //users table permissions
+            'store.index',
+            'store.create',
+            'store.show',
+            'store.edit',
+            'store.delete',
+            'store.ban',
+            'store.cancel.ban',
             //sellers table permissions
             'seller.index',
             'seller.create',
@@ -59,11 +68,18 @@ class AccessControlDatabaseSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission,'module_name' => 'Admin','guard_name'=>'admin']);
+            Permission::create(['name' => $permission, 'module_name' => 'Admin', 'guard_name' => 'admin']);
         }
-        $role = Role::create(['name' => 'super_admin','guard_name'=>'admin']);
+        $role = Role::create(['name' => 'super_admin', 'guard_name' => 'admin']);
         // $role = Role::first();
-        
+        $admin = Admin::create([
+            'name' => 'محمد',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('Pa$$w0rd!'),
+            'email_verified_at' => now(),
+            'phone_number' => '+1 234 5678',
+        ]);
+        $admin->assignRole($role);
         $role->givePermissionTo(Permission::all());
     }
 }

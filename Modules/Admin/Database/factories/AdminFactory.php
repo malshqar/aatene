@@ -21,7 +21,11 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'=>fake('ar')->name(),
+            'email'=>fake('ar')->unique()->email(),
+            'password'=>bcrypt('password'),
+            'phone_number'=>fake('ar')->unique()->phoneNumber(),
+            'email_verified_at'=>now(),
         ];
     }
 }

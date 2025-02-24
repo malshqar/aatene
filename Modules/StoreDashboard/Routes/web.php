@@ -1,5 +1,7 @@
 <?php
 
+use Modules\StoreDashboard\Http\Controllers\StoreDashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,6 @@
 |
 */
 
-Route::prefix('storedashboard')->group(function() {
-    Route::get('/', 'StoreDashboardController@index');
+Route::prefix('store')->name('store.')->middleware(['verified','has_store'])->group(function() {
+    Route::get('/', [StoreDashboardController::class,'index']);
 });

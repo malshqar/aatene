@@ -4,6 +4,7 @@ namespace Modules\Admin\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Admin\Entities\Admin;
 
 class AdminDatabaseSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class AdminDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
+        
         // $this->call("OthersTableSeeder");
     }
 }
