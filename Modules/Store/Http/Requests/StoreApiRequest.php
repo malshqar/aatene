@@ -42,7 +42,7 @@ class StoreApiRequest extends FormRequest
         return [
             'name' => 'required|string|min:2|max:100',
             'description' => 'required|string|max:255',
-            'avatar' => $this->ImageRules(),
+            'logo' => $this->ImageRules(),
             'cover' => $this->ImageRules(),
         ];
 
@@ -63,7 +63,7 @@ class StoreApiRequest extends FormRequest
         return [
             'name' => 'الإسم',
             'description' => 'الوصف',
-            'avatar' => 'صورة الرئيسية',
+            'logo' => 'صورة الشعار',
             'cover' => 'صورة الغلاف',
         ];
     }

@@ -84,7 +84,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Gaza',
 
     /*
     |--------------------------------------------------------------------------
@@ -181,8 +181,9 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\ModuleRouteServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laravel\Sanctum\SanctumServiceProvider::class,
+        // App\Providers\ModuleRouteServiceProvider::class,
     ])->toArray(),
 
     /*

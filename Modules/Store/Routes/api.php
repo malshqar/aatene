@@ -18,4 +18,4 @@ use Modules\Store\Http\Controllers\StoreApiController;
 //     return $request->user();
 // });
 
-Route::post('/store/store/{seller}', [StoreApiController::class, 'store']);
+Route::middleware('auth:seller_api')->post('/store/create', [StoreApiController::class, 'store']);

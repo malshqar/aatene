@@ -14,13 +14,13 @@ class ModuleRouteServiceProvider extends ServiceProvider
     {
         $this->mapApiModuleRoutes();
         $this->mapWebDashboardModuleRoutes();
-        $this->mapWebStoreDashboardModuleRoutes();
+        // $this->mapWebStoreDashboardModuleRoutes();
     }
 
 
     protected function mapApiModuleRoutes()
     {
-        $modules = ['User', 'Admin', 'AccessControl', 'Seller', 'Store']; // Replace with your module names
+        $modules = ['User', 'Admin', 'AccessControl', 'Seller', 'Store','Auth']; // Replace with your module names
 
         foreach ($modules as $module) {
             $modulePath = base_path("Modules/{$module}/Routes/api.php");

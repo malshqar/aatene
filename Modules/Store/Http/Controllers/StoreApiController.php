@@ -2,30 +2,26 @@
 
 namespace Modules\Store\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Seller\Entities\Seller;
 use Modules\Shared\Helpers\Slug;
 use Modules\Shared\Http\Responses\ApiResponse;
-use Modules\Store\Entities\Store;
 use Modules\Store\Http\Requests\StoreApiRequest;
 use Modules\Store\Transformers\StoreResource;
 
 class StoreApiController extends Controller
 {
 
-    public function store(StoreApiRequest $request, Seller $seller)
+    public function store(StoreApiRequest $request)
     {
-
+        $seller = auth()->user();
         try {
             \DB::beginTransaction();
             if (is_null($seller->store)) {
                 $store = $seller->store()->create($request->only(['name', 'description']));
-                if ($request->hasFile('avatar')) {
-                    $file = $request->file('avatar');
+                if ($request->hasFile('logo')) {
+                    $file = $request->file('logo');
                     $path = $store->uploadOnDisk($file, str_replace(' ', '_', $store->name));
-                    $store->storeImage($path, Slug::ar( pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)), 'avatar');
+                    $store->storeImage($path, Slug::ar( pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)), 'logo');
                 }
                 if ($request->hasFile('cover')) {
                     $file = $request->file('cover');
