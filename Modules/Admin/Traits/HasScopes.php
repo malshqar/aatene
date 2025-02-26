@@ -46,4 +46,8 @@ trait HasScopes
     {
         $builder->where('id','<>',auth()->id());
     }
+    public function ScopeSkipOwner(Builder $builder)
+    {
+        $builder->where('id','<>',1);
+    }
 }

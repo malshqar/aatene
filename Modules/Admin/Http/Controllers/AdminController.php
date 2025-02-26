@@ -27,7 +27,7 @@ class AdminController extends Controller
     {
         $filters = request()->query();
         $count = (int) request()->query('count');
-        $admins = Admin::skipAuth()->filters($filters)->latest()->paginate(($count == 0 && $count >= 100) ? 7 : $count);
+        $admins = Admin::skipAuth()->skipOwner()->filters($filters)->latest()->paginate(($count == 0 && $count >= 100) ? 7 : $count);
         return view('admin::index', compact('admins'));
     }
 
