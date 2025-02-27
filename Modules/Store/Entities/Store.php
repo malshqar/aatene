@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Entities\Seller;
+use Modules\Store\Traits\HasScopes;
 
 class Store extends Model
 {
-    use HasFactory ,Sluggable, HasPhoto;
+    use HasFactory, Sluggable, HasPhoto, HasScopes;
 
-        /**
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -47,5 +48,10 @@ class Store extends Model
     protected static function newFactory()
     {
         return \Modules\Store\Database\factories\StoreFactory::new();
+    }
+
+    public function getStatusArAttribute()
+    {
+        return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة":"لم يقبل بعد";
     }
 }

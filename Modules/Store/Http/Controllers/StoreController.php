@@ -5,6 +5,8 @@ namespace Modules\Store\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Seller\Entities\Seller;
+use Modules\Store\Entities\Store;
 
 class StoreController extends Controller
 {
@@ -14,7 +16,15 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('store::index');
+        $filters = request()->query();
+        $count = (int) request()->query('count');
+        $stores = Store::with('seller')->latest()->filters($filters)->paginate(($count == 0 && $count >= 100) ? 7 : $count);
+        $open = Store::active()->accepted()->count();
+        $close = Store::inactive()->accepted()->count();
+        $sellers = Seller::latest()->take(10)->get();
+        $sellers_count = Seller::count();
+        $pending = Store::pending()->count();
+        return view('store::index',compact('stores','open','close','sellers','sellers_count','pending'));
     }
 
     /**
@@ -41,9 +51,9 @@ class StoreController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show($id)
+    public function show(Store  $store)
     {
-        return view('store::show');
+        return view('store::show',compact('store'));
     }
 
     /**

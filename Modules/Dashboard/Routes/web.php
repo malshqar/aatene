@@ -14,3 +14,4 @@ use Modules\Dashboard\Http\Controllers\DashboardController;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('index');
+Route::resource('notifications',DashboardController::class);

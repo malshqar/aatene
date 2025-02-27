@@ -14,4 +14,9 @@ use Modules\Store\Http\Controllers\StoreController;
 */
 
 
-// Route::get('store/create', [StoreController::class, 'create'])->middleware('auth')->name('store.create');
+// Route::group(['name'=>''],function (){
+//     Route::get('/',function (){
+
+//     });
+// });
+Route::resource('stores',StoreController::class);

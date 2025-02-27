@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Auth;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Features;
 

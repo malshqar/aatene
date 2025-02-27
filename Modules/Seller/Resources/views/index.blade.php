@@ -32,7 +32,7 @@
                             <!--begin::Table container-->
                             <div class="table-responsive">
                                 <!--begin::Table-->
-                                <table class="table align-middle gs-0 gy-4">
+                                <table class="table text-center align-middle gs-0 gy-4">
                                     <!--begin::Table head-->
                                     <thead>
                                         <tr class="fw-bold text-muted bg-light fs-5">
@@ -40,6 +40,7 @@
                                             <th class="min-w-225px">البائع</th>
                                             <th class="min-w-100px">الرصيد</th>
                                             <th class="min-w-100px">الحالة</th>
+                                            <th class="min-w-100px">يمتلك متجر</th>
                                             <th class="min-w-50px">تاريخ الانضمام</th>
                                             <th class="min-w-50px">اخر عملية تسجيل دخول</th>
                                             @canany(['seller.edit', 'seller.ban', 'seller.delete'])
@@ -58,7 +59,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="d-flex align-items-center">
+                                                    <div class="d-flex text-start align-items-center">
                                                         <div class="symbol symbol-50px me-5">
                                                             <img src="{{ asset('assets/media/misc/spinner.gif') }}"
                                                                 data-src="{{ $seller->assets['url'] }}"
@@ -83,6 +84,19 @@
                                                     <span
                                                         class="badge badge-light-primary fs-7 fw-bold">{{ $seller->seller_status}}</span>
                                                 </td>
+                                                <td >
+                                                    @if ($seller->store)
+                                                            <i class="ki-duotone ki-verify fs-1 fw-bold">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @else
+                                                            <i class="ki-duotone ki-cross-square fs-1 fw-bold                      ">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        @endif
+                                                </td>
                                                 <td>
                                                     <span class="fs-5 fw-bold">{{ $seller->created_at->format('Y/m/d') }}</span>
                                                 </td>
@@ -98,8 +112,7 @@
                                                                 class="btn btn-icon btn-bg-light {{ is_null($seller->ban_at) ? 'btn-active-color-primary' : 'btn-color-danger ' }} btn-sm me-1">
                                                                 <i class="fa-sharp-duotone fa-solid fa-ban fs-2"></i>
                                                             </a>
-                                                        @endcan 
-                                                        @can('seller.edit')
+                                                        @endcan       @can('seller.edit')
                                                             <a href="{{ route('dashboard.sellers.edit', $seller->id) }}"
                                                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
                                                                 <i class="ki-duotone ki-pencil fs-2">
@@ -107,8 +120,7 @@
                                                                     <span class="path2"></span>
                                                                 </i>
                                                             </a>
-                                                        @endcan 
-                                                        @can('seller.delete')
+                                                        @endcan        @can('seller.delete')
                                                             <a onclick="confirmDestroy('{{ route('dashboard.sellers.destroy', $seller->id) }}', this)"
                                                                 class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
                                                                 <i class="ki-duotone ki-trash fs-2">

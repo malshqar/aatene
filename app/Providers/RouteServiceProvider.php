@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapWebDashboardModuleRoutes()
     {
-        $modules = ['User', 'Admin', 'AccessControl', 'Seller', 'Dashboard']; // An array of your module names, if you have such a configuration
+        $modules = ['User', 'Admin', 'AccessControl', 'Seller','Dashboard','Store']; // An array of your module names, if you have such a configuration
 
         foreach ($modules as $module) {
             $modulePath = base_path("Modules/{$module}/Routes/web.php");

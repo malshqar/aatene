@@ -20,9 +20,10 @@
 
 
 <style>
+    html,
     body {
         direction: rtl;
         font-family: "Almarai", serif !important;
-
     }
+  
 </style>

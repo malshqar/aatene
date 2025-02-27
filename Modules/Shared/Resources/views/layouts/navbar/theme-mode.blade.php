@@ -4,7 +4,7 @@
     <a href="#"
         class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
         data-kt-menu-trigger="{default:'click', lg: 'hover'}" data-kt-menu-attach="parent"
-        data-kt-menu-placement="bottom-end">
+        data-kt-menu-placement="bottom-start">
         <i class="ki-duotone ki-night-day theme-light-show fs-2 fs-lg-1">
             <span class="path1"></span>
             <span class="path2"></span>

@@ -35,6 +35,7 @@
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
                 <!--begin::Theme mode-->
+                @include('shared::layouts.navbar.notifications-menu')
                 @include('shared::layouts.navbar.theme-mode')
                 <!--end::Theme mode-->
                 <!--begin::User menu-->

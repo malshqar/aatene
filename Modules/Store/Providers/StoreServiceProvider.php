@@ -2,8 +2,11 @@
 
 namespace Modules\Store\Providers;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Store\Events\StoreCreated;
+use Modules\Store\Listeners\SendNotificationNewStoreCreated;
 
 class StoreServiceProvider extends ServiceProvider
 {
@@ -24,6 +27,10 @@ class StoreServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen(
+            StoreCreated::class,
+            SendNotificationNewStoreCreated::class,
+        );
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();

@@ -68,7 +68,7 @@ trait HasPhoto
 
     public static function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
     {
-        $name = time() . '_' . rand(0, 5) . '_' . $image->getClientOriginalName();
+        $name = time().'_'.rand(0, 5).'_'.$image->getClientOriginalName();
         $path = $image->storeAs("$dir", $name, $disk);
         return $path;
     }
@@ -77,7 +77,7 @@ trait HasPhoto
     {
         $data_images = [];
         foreach ($images as $image) {
-            $path = self::uploadOnDisk($images, $dir, $disk);
+            $path = self::uploadOnDisk($image, $dir, $disk);
             $data_images[] = $path;
         }
         return $data_images;
