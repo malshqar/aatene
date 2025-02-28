@@ -34,20 +34,7 @@
             <!--end:Menu link-->
         </div>
         <!--end:Menu item-->
-        @can('store.create')
-        <!--begin:Menu item-->
-        <div class="menu-item">
-            <!--begin:Menu link-->
-            <a @class(['menu-link', 'active' => Route::is('dashboard.stores.create')]) href="{{ route('dashboard.stores.create') }}">
-                <span class="menu-bullet">
-                    <span class="bullet bullet-dot"></span>
-                </span>
-                <span class="menu-title fs-5">{{__("طلبات انشاء المتاجر")}}</span>
-            </a>
-            <!--end:Menu link-->
-        </div>
-        <!--end:Menu item-->
-        @endcan
+
     </div>
     <!--end:Menu sub-->
 </div>

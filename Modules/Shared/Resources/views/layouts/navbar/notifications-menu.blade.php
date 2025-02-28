@@ -45,9 +45,9 @@
             <!--begin::Tab panel-->
             <div class="tab-pane fade show active" id="kt_topbar_notifications_1" role="tabpanel">
                 <!--begin::Items-->
-                <div class="scroll-y mh-325px my-5 px-8">
+                <div class="scroll-y mh-325px my-5 px-8" id="notification-list">
 
-                    @foreach (auth()->user()->unreadNotifications as $notification)
+                    @foreach (auth()->user()?->unreadNotifications as $notification)
                         <!--begin::Item-->
                         <div class="d-flex flex-stack py-4">
                             <!--begin::Section-->
@@ -61,6 +61,8 @@
                                             <span class="path3"></span>
                                             <span class="path4"></span>
                                             <span class="path5"></span>
+                                            <span class="path6"></span>
+                                            <span class="path7"></span>
                                         </i>
                                     </span>
                                 </div>
@@ -68,7 +70,7 @@
 
                                 <!--begin::Title-->
                                 <div class="mb-0 me-2">
-                                    <a href="{{$notification->data['url']}}"
+                                    <a href="{{$notification->data['url']}}?notification_id={{$notification->id}}"
                                         class="fs-6 text-gray-800 text-hover-primary fw-bold">{{$notification->data['name']}}</a>
                                     <div class="text-gray-500 fs-7">{{$notification->data['message']}}</div>
                                 </div>
@@ -105,3 +107,10 @@
     <!--end::Menu--> <!--end::Menu wrapper-->
 </div>
 <!--end::Notifications-->
+
+@push('scripts')
+    <script>
+        let channelId = "{{auth()->user()->id}}";
+    </script>
+    @vite('resources/js/app.js')
+@endpush

@@ -40,7 +40,7 @@ class StoreApiRequest extends FormRequest
             ];
         }
         return [
-            'name' => 'required|string|min:2|max:100',
+            'name' => 'required|string|min:2|max:100|unique:stores,name',
             'description' => 'required|string|max:255',
             'logo' => $this->ImageRules(),
             'cover' => $this->ImageRules(),

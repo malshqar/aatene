@@ -51,7 +51,7 @@
                                         <!--begin::Label-->
                                         <div class="d-flex fs-3 fw-semibold align-items-center mb-3">
                                             <div class="bullet bg-danger me-3"></div>
-                                            <div class="text-gray-500">{{__("لم يقبل بعد")}}</div>
+                                            <div class="text-gray-500">{{__("معطل")}}</div>
                                             <div class="ms-auto fw-bold text-gray-700">{{$pending}}</div>
                                         </div>
                                         <!--end::Label-->
@@ -266,7 +266,7 @@
                                         ],
                                     },
                                 ],
-                                labels: ["مفتوح", "في اجازة", "لم يقبل بعد"],
+                                labels: ["مفتوح", "في اجازة", "معطل"],
                             },
                             options: {
                                 chart: { fontFamily: "inherit" },

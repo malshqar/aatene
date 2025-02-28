@@ -37,4 +37,6 @@ class SendNotificationNewStoreCreated implements ShouldQueue
             $admin->notify(new StoreCreatedNotification($event->store));
         }
     }
+
+    
 }

@@ -20,3 +20,5 @@ use Modules\Store\Http\Controllers\StoreController;
 //     });
 // });
 Route::resource('stores',StoreController::class);
+Route::post('stores/accept/{store}',[StoreController::class,'acceptStore'])->name('stores.accept');
+Route::get('stores/actions/{store}',[StoreController::class,'actions'])->name('stores.actions');

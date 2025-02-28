@@ -2,6 +2,7 @@
 
 namespace Modules\Admin\Entities;
 
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +16,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends User implements MustVerifyEmail
 {
-    use HasFactory, HasApiTokens,  HasRoles, HasPhoto, Notifiable, HasScopes;
+    use HasFactory, HasApiTokens, HasRoles, HasPhoto, Notifiable, HasScopes;
 
-        /**
+    /**
      * The "booted" method of the model.
      */
 
@@ -63,4 +64,15 @@ class Admin extends User implements MustVerifyEmail
         return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
     }
 
+    /**
+     * Get the channels that model events should broadcast on.
+     *
+     * @return array<int, \Illuminate\Broadcasting\Channel>
+     */
+    public function broadcastOn(string $event): array
+    {
+        return [
+            new PrivateChannel('Modules.Admin.Entities.Admin.' . $this->id)
+        ];
+    }
 }

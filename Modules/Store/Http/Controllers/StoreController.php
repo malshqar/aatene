@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Seller\Entities\Seller;
+use Modules\Shared\Helpers\DeleteAjaxRespose;
 use Modules\Store\Entities\Store;
 
 class StoreController extends Controller
@@ -24,9 +25,14 @@ class StoreController extends Controller
         $sellers = Seller::latest()->take(10)->get();
         $sellers_count = Seller::count();
         $pending = Store::pending()->count();
-        return view('store::index',compact('stores','open','close','sellers','sellers_count','pending'));
+        return view('store::index', compact('stores', 'open', 'close', 'sellers', 'sellers_count', 'pending'));
     }
 
+    public function acceptStore(Store $store)
+    {
+        $store->update(['is_accepted' => true]);
+        return back()->with(['notification' => 'تم قبول هذا المتجر بنجاح']);
+    }
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -51,9 +57,14 @@ class StoreController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show(Store  $store)
+    public function show(Store $store)
     {
-        return view('store::show',compact('store'));
+        return view('store::show', compact('store'));
+    }
+
+    public function actions(Store $store)
+    {
+        return view('store::pages.actions', compact('store'));
     }
 
     /**
@@ -77,13 +88,10 @@ class StoreController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
+
+    public function destroy(Store $store)
     {
-        //
+        $isDeleted = $store->delete();
+        return to_route('dashboard.stores.index');
     }
 }

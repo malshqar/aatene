@@ -1,4 +1,4 @@
-  @props([ 'back_url', 'current', 'previews'])
+  @props([ 'back_url', 'current', 'previews','back_id'=>[]])
   <!--begin::Toolbar-->
   <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
       <!--begin::Toolbar container-->
@@ -11,7 +11,7 @@
               <ul class="breadcrumb breadcrumb-separatorless  fs-2 my-0 pt-1">
                   <!--begin::Item-->
                   <li class="breadcrumb-item ">
-                      <a href="{{ route($back_url) }}" class=" text-hover-primary"> {{ $previews }}</a>
+                      <a href="{{ route($back_url, $back_id) }}" class=" text-hover-primary"> {{ $previews }}</a>
                   </li>
                   <!--end::Item-->
                   <!--begin::Item-->

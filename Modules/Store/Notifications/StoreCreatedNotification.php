@@ -3,6 +3,7 @@
 namespace Modules\Store\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -30,7 +31,7 @@ class StoreCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail','database', 'broadcast'];
     }
 
     /**
@@ -42,9 +43,9 @@ class StoreCreatedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', 'https://laravel.com')
-            ->line('Thank you for using our application!');
+            ->subject('إنشاء متجر جديد')
+            ->line('لديك اشعار جديد تحقق من لوحة التحكم')
+            ->action('لوحة التحكم', route('dashboard.index'));
     }
 
 
@@ -58,16 +59,13 @@ class StoreCreatedNotification extends Notification
         ];
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    public function toBroadcast(object $notifiable): BroadcastMessage
     {
-        return [
-            //
-        ];
+        return new BroadcastMessage([
+            'name' => 'طلب انشاء متجر',
+            'url' => route('dashboard.stores.show', $this->store->id),
+            'icon' => 'ki-duotone ki-shop',
+            'message' => __("تم ارسال طلب انشاء متجر جديد باسم {$this->store->name}"),
+        ]);
     }
 }

@@ -18,7 +18,7 @@
                 <option value="active" @selected(request()->query('status') == 'active')> نشط</option>
                 <option value="inactive" @selected(request()->query('status') == 'inactive')>  في إجازة
                 </option>
-                <option value="pending" @selected(request()->query('status') == "pending")>  لم يقبل بعد
+                <option value="pending" @selected(request()->query('status') == "pending")>  معطل
                 </option>
                 <option value="all" @selected(request()->query('status') == 'all')> الكل
                 </option>

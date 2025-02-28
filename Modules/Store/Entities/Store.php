@@ -52,6 +52,6 @@ class Store extends Model
 
     public function getStatusArAttribute()
     {
-        return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة":"لم يقبل بعد";
+        return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة":"معطل";
     }
 }
