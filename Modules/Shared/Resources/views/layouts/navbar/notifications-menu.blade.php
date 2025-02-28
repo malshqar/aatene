@@ -112,5 +112,5 @@
     <script>
         let channelId = "{{auth()->user()->id}}";
     </script>
-    @vite('resources/js/app.js')
+    {{ module_vite('build', 'resources/js/app.js') }}
 @endpush

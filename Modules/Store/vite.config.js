@@ -15,8 +15,9 @@ export default defineConfig({
             publicDirectory: '../../public',
             buildDirectory: 'build-store',
             input: [
-                __dirname + '/Resources/assets/sass/app.scss',
-                __dirname + '/Resources/assets/js/app.js'
+                __dirname + '/Resources/assets/css/app.css',
+                __dirname + '/Resources/assets/js/app.js',
+                __dirname + '/Resources/assets/js/delete.js'
             ],
             refresh: true,
         }),
