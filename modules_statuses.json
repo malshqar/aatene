@@ -12,5 +12,6 @@
     "AccessControl": true,
     "Auth": true,
     "Store": true,
-    "Followers": true
+    "Followers": true,
+    "Ads": true
 }

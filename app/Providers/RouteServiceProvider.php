@@ -44,7 +44,7 @@ class RouteServiceProvider extends ServiceProvider
 
     protected function mapApiModuleRoutes()
     {
-        $modules = ['User', 'Admin', 'AccessControl', 'Seller', 'Store','Auth','Followers']; // Replace with your module names
+        $modules = ['User', 'Admin', 'AccessControl', 'Seller', 'Store','Auth','Followers','Ads']; // Replace with your module names
 
         foreach ($modules as $module) {
             $modulePath = base_path("Modules/{$module}/Routes/api.php");
