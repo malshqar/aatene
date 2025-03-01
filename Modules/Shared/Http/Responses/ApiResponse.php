@@ -19,13 +19,19 @@ class ApiResponse
     public static function success($data = null, $message = 'Operation successful', $status = Response::HTTP_OK)
     {
         $count = is_array($data) || $data instanceof \Countable ? count($data) : null;
-
-        return response()->json([
-            'status' => 'success',
+        $response = [
+            'status' => true,
             'message' => $message,
             'count' => $count,
             'data' => $data,
-        ], $status);
+        ];
+        if (is_null($data)) {
+            $response = [
+                'status' => true,
+                'message' => $message,
+            ];
+        }
+        return response()->json($response, $status);
     }
 
     /**
@@ -39,7 +45,7 @@ class ApiResponse
     public static function error($message = 'Operation failed', $status = Response::HTTP_BAD_REQUEST, $errors = null)
     {
         return response()->json([
-            'status' => 'error',
+            'status' => false,
             'message' => $message,
             'errors' => $errors,
         ], $status);

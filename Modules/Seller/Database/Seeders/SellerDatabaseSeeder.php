@@ -17,12 +17,12 @@ class SellerDatabaseSeeder extends Seeder
     {
         Model::unguard();
         Seller::create([
-            'name' => ' محمد',
-            'email'=>'seller@gmail.com',
+            'name' => 'البائع محمد',
+            'email'=>'example-seller@aatene.app',
             'password'=>bcrypt('Pa$$w0rd!'),
             'email_verified_at'=>now(),
             'phone_number'=>'+1 234 5678',
-            'gold_coins'=>1000000
+            'gold_coins'=>999999
         ]);
         // $this->call("OthersTableSeeder");
     }

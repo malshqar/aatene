@@ -17,11 +17,11 @@ class UserDatabaseSeeder extends Seeder
     {
         Model::unguard();
         User::create([
-            'name' => ' محمد',
-            'email'=>'admin@gmail.com',
+            'name' => 'المستخدم محمد',
+            'email'=>'example-user@aatene.app',
             'password'=>bcrypt('Pa$$w0rd!'),
             'email_verified_at'=>now(),
-            'phone_number'=>'+1 234 5678',
+            'phone_number'=>'+1 123 456 6789',
         ]);
         // $this->call("OthersTableSeeder");
     }

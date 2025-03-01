@@ -65,6 +65,10 @@ class AccessControlDatabaseSeeder extends Seeder
             'role.show',
             'role.edit',
             'role.delete',
+            // followers table permissions
+            'follower.follow',
+            'follower.unfollow',
+            'follower.list',
         ];
 
         foreach ($permissions as $permission) {
@@ -73,11 +77,11 @@ class AccessControlDatabaseSeeder extends Seeder
         $role = Role::create(['name' => 'super_admin', 'guard_name' => 'admin']);
         // $role = Role::first();
         $admin = Admin::create([
-            'name' => 'محمد',
-            'email' => 'admin@gmail.com',
+            'name' => 'الأدمن علاء',
+            'email' => 'example-admin-2@aatene.app',
             'password' => bcrypt('Pa$$w0rd!'),
             'email_verified_at' => now(),
-            'phone_number' => '+1 234 5678',
+            'phone_number' => '+1 123 456 0001',
         ]);
         $admin->assignRole($role);
         $role->givePermissionTo(Permission::all());

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Photo\Traits\HasPhoto;
+use Modules\Store\Entities\Store;
 use Modules\User\Traits\HasScopes;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -63,6 +64,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getUserStatusAttribute()
     {
         return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(Store::class, 'followers', 'user_id', 'store_id');
     }
     
 

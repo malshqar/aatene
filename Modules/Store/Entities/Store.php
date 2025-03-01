@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Entities\Seller;
 use Modules\Store\Traits\HasScopes;
+use Modules\User\Entities\User;
 use Spatie\Tags\HasTags;
 
 class Store extends Model
@@ -50,6 +51,13 @@ class Store extends Model
     {
         return $this->belongsTo(Seller::class);
     }
+
+    
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers'  , 'store_id' , 'user_id');
+    }
+
     protected static function newFactory()
     {
         return \Modules\Store\Database\factories\StoreFactory::new();
@@ -59,4 +67,5 @@ class Store extends Model
     {
         return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة" : "معطل";
     }
+
 }

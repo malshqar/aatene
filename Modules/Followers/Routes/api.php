@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Followers\Http\Controllers\FollowersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/followers', function (Request $request) {
-    return $request->user();
-});
+Route::get('followers', [FollowersController::class, 'followersList']);
+Route::post('follow/{store:slug}', [FollowersController::class, 'follow'])->name('store.follow');
+Route::delete('unfollow/{store:slug}', [FollowersController::class, 'unfollow'])->name('store.unfollow');

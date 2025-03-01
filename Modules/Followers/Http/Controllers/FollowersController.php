@@ -5,75 +5,50 @@ namespace Modules\Followers\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Followers\Entities\Follower;
+use Modules\Shared\Http\Responses\ApiResponse;
+use Modules\Store\Entities\Store;
 
 class FollowersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public function follow(Store $store)
     {
-        return view('followers::index');
+        $user = auth()->guard('user_api')->user();
+
+        // Check if the user is not already following the store
+        if (!$user->followers()->where('store_id', $store->id)->exists()) {
+            $follower = new Follower([
+                'user_id' => $user->id,
+                'store_id' => $store->id
+            ]);
+            $follower->save();
+            return ApiResponse::success(message: 'You are now following: ' . $store->name);
+        }
+        return ApiResponse::success(message: 'You are already following: ' . $store->name);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function unfollow(Store $store)
     {
-        return view('followers::create');
+        $user = auth()->guard('user_api')->user();
+
+        // Find the follower entry and delete it if it exists
+        $follower = $user->followers()->where('store_id', $store->id)->first();
+
+        if ($follower) {
+            $follower->delete();
+            return ApiResponse::success(message: 'You have unfollowed: ' . $store->name);
+        }
+        return ApiResponse::success(message: 'You were not following: ' . $store->name);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function followersList()
     {
-        //
-    }
+        if (auth()->guard() == 'seller_api') {
+            $followers = auth()->guard('seller_api')->user()->store()->followers()->paginate();
+        }
+            $followers = auth()->guard('user_api')->user()->followers()->paginate();
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('followers::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('followers::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        return ApiResponse::success($followers);
     }
 }

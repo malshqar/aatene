@@ -16,7 +16,13 @@ class AdminDatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        
+        Admin::create([
+            'name' => 'الأدمن محمد',
+            'email'=>'example-admin@aatene.app',
+            'password'=>bcrypt('Pa$$w0rd!'),
+            'email_verified_at'=>now(),
+            'phone_number'=>'+1 123 456 6789',
+        ]);
         // $this->call("OthersTableSeeder");
     }
 }
