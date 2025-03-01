@@ -28,7 +28,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone_number',
         'ban_at',
         'ban_reason',
-        'status'
+        'status',
+        "two_factor_secret",
+        "two_factor_recovery_codes",
+        "two_factor_confirmed_at",
     ];
 
     /**
@@ -41,6 +44,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'ban_at',
         'ban_reason',
+        "two_factor_secret",
+        "two_factor_recovery_codes",
+        "two_factor_confirmed_at",
     ];
 
     /**

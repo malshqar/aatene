@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Seller\Http\Controllers\SellerApiController;
+
 
 
 /*
@@ -13,3 +15,6 @@
 |
 */
 
+Route::get('/sellers', [SellerApiController::class, 'index']);
+Route::middleware('auth:seller_api')->get('/seller/profile', [SellerApiController::class, 'profile']);
+Route::middleware('auth:seller_api')->delete('/seller/remove-account', [SellerApiController::class, 'destroy']);

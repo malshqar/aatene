@@ -22,7 +22,10 @@ use Modules\Auth\Http\Controllers\AuthApiController;
 
 Route::post('/user/login', [AuthApiController::class, 'loginUser']);
 Route::post('/seller/login', [AuthApiController::class, 'loginSeller']);
+Route::middleware('auth:seller_api,user_api')->post('/logout', [AuthApiController::class, 'logout']);
+
 Route::post('/seller/register',[AuthApiController::class,'registerSeller']);
-Route::get( '/email/verify/{id}/{hash}',[AuthApiController::class,'verify'] )
+Route::post('/user/register',[AuthApiController::class,'registerUser']);
+Route::get( '/email/verify/{id}/{hash}',[AuthApiController::class,'verify'])
 ->middleware(['throttle:6'])
 ->name('verification.verify');

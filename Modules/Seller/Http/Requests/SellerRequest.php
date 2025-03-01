@@ -20,7 +20,7 @@ class SellerRequest extends FormRequest
         if (request()->method() == 'PUT') {
             return [
                 'name' => 'required|string|min:2|max:100',
-                'email' => 'required|string|max:255|email|unique:sellers,email,'.$this->seller->id,
+                'email' => 'required|string|max:255|email|unique:admins,email|unique:users,email|unique:sellers,email,'.$this->seller->id,
                 'password' => [
                     'nullable',
                     'string',
@@ -41,7 +41,7 @@ class SellerRequest extends FormRequest
         }
         return [
             'name' => 'required|string|min:2|max:100',
-            'email' => 'required|string|max:255|email|unique:sellers,email',
+            'email' => 'required|string|max:255|email|unique:users,email|unique:sellers,email|unique:admins,email',
             'password' => [
                 'required',
                 'string',

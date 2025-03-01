@@ -24,7 +24,10 @@ class Seller extends User implements MustVerifyEmail
         'ban_at',
         'ban_reason',
         'status',
-        'gold_coins'
+        'gold_coins',
+        "two_factor_secret",
+        "two_factor_recovery_codes",
+        "two_factor_confirmed_at",
     ];
 
     /**
@@ -37,6 +40,11 @@ class Seller extends User implements MustVerifyEmail
         'remember_token',
         'ban_at',
         'ban_reason',
+        'status',
+        'gold_coins',
+        "two_factor_secret",
+        "two_factor_recovery_codes",
+        "two_factor_confirmed_at"
     ];
 
     /**
@@ -59,7 +67,7 @@ class Seller extends User implements MustVerifyEmail
     {
         return $this->status == 'active' ? 'حساب فعال' : 'حساب معطل';
     }
-    
+
     public function store()
     {
         return $this->hasOne(Store::class);

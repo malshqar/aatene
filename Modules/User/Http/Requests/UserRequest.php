@@ -4,10 +4,11 @@ namespace Modules\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use Modules\Photo\Traits\FilesValidationRules;
 
 class UserRequest extends FormRequest
 {
-
+    use FilesValidationRules;
     /**
      * Get the validation rules that apply to the request.
      *
@@ -18,7 +19,7 @@ class UserRequest extends FormRequest
         if (request()->method() == 'PUT') {
             return [
                 'name' => 'required|string|min:2|max:100',
-                'email' => 'required|string|max:255|email|unique:users,email,'.$this->user->id,
+                'email' => 'required|string|max:255|email|unique:users,email,' . $this->user->id,
                 'password' => [
                     'nullable',
                     'string',
@@ -31,9 +32,9 @@ class UserRequest extends FormRequest
                     ,
                     'confirmed'
                 ],
-                'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number,'.$this->user->id,
+                'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number,' . $this->user->id,
                 'status' => 'required|string|in:active,inactive',
-                'avatar' => 'nullable|image'
+                'avatar' => $this->ImageRules(true)
             ];
         }
         return [
@@ -53,7 +54,7 @@ class UserRequest extends FormRequest
             ],
             'phone_number' => 'required|regex:/^\+1 \d{3} \d{3} \d{4}$/|min:6|max:20|unique:users,phone_number',
             'status' => 'required|string|in:active,inactive',
-            'avatar' => 'required|image'
+            'avatar' => $this->ImageRules()
         ];
 
     }

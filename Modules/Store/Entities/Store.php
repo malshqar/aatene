@@ -41,6 +41,10 @@ class Store extends Model
         'seller_id',
     ];
 
+    protected $hidden = [
+        'seller_id',
+    ];
+
     public function seller()
     {
         return $this->belongsTo(Seller::class);

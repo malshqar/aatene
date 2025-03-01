@@ -27,17 +27,17 @@ trait HasScopes
         });
     }
 
-    public function ScopeActiveUseres(Builder $builder)
+    public function ScopeActiveSellers(Builder $builder)
     {
         $builder->where('status', '=', 'active');
     }
 
-    public function ScopeInactiveUseres(Builder $builder)
+    public function ScopeInactiveSellers(Builder $builder)
     {
         $builder->where('status', '=', 'inactive');
     }
 
-    public function ScopeBlockedUsers(Builder $builder)
+    public function ScopeBlockedSellers(Builder $builder)
     {
         $builder->whereNotNull('ban_at');
     }

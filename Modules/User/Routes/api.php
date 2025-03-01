@@ -16,5 +16,7 @@ use Modules\User\Http\Controllers\UserApiController;
 
 // Route::get('/users', function (Request $request) {
 // });
-Route::get('/users',[UserApiController::class,'index'])->name('users');
-Route::get('/user/{user}',[UserApiController::class,'show'])->name('users.show');
+Route::get('/users',[UserApiController::class,'index']);
+Route::middleware('auth:user_api')->get('/user/profile', [UserApiController::class, 'profile']);
+Route::middleware('auth:user_api')->delete('/user/remove-account', [UserApiController::class, 'destroy']);
+Route::get('/user/{user}',[UserApiController::class,'show']);
