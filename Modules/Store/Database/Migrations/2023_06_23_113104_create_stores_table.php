@@ -21,8 +21,8 @@ return new class extends Migration
             $table->timestamp('ban_at')->nullable();
             $table->string('block_reason')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->float('rating')->default(0);
-            $table->enum('level', [1, 2, 3, 4, 5])->default(1);
+            // $table->float('rating')->default(0);
+            // $table->enum('level', [1, 2, 3, 4, 5])->default(1);
             $table->foreignId('seller_id')
                 ->constrained()
                 ->cascadeOnDelete();

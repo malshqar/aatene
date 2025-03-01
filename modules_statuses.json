@@ -11,5 +11,6 @@
     "Photo": true,
     "AccessControl": true,
     "Auth": true,
-    "Store": true
+    "Store": true,
+    "Followers": true
 }

@@ -1,0 +1,11 @@
+{
+    "name": "Followers",
+    "alias": "followers",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Followers\\Providers\\FollowersServiceProvider"
+    ],
+    "files": []
+}

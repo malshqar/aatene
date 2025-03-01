@@ -44,6 +44,7 @@ class StoreApiController extends Controller
                     $path = $store->uploadOnDisk($file, $store->slug);
                     $store->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)), 'cover');
                 }
+                $store->attachTags($request->tags);
                 \DB::commit();
                 StoreCreated::dispatch($store);
                 return ApiResponse::success((new StoreResource($store)), 'Store Created Successfully');
@@ -60,6 +61,7 @@ class StoreApiController extends Controller
     {
         return ApiResponse::success(new StoreResource($store->load('seller')));
     }
+
 
     public function destroy()
     {

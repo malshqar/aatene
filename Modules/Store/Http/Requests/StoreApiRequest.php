@@ -44,6 +44,8 @@ class StoreApiRequest extends FormRequest
             'description' => 'required|string|max:255',
             'logo' => $this->ImageRules(),
             'cover' => $this->ImageRules(),
+            'tags'=>'sometimes|array',
+            'tags.*'=>'sometimes|string'
         ];
 
     }

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Entities\Seller;
 use Modules\Store\Traits\HasScopes;
+use Spatie\Tags\HasTags;
 
 class Store extends Model
 {
-    use HasFactory, Sluggable, HasPhoto, HasScopes;
+    use HasFactory, Sluggable, HasPhoto, HasScopes, HasTags;
 
     /**
      * Return the sluggable configuration array for this model.
@@ -31,14 +32,14 @@ class Store extends Model
         'name',
         'slug',
         'description',
-        'location',
         'is_accepted',
         'ban_at',
         'block_reason',
         'status',
-        'rating',
-        'level',
         'seller_id',
+        'location',
+        // 'rating',
+        // 'level',
     ];
 
     protected $hidden = [
@@ -56,6 +57,6 @@ class Store extends Model
 
     public function getStatusArAttribute()
     {
-        return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة":"معطل";
+        return $this->is_accepted ? $this->status == "active" ? "مفتوح" : "في إجازة" : "معطل";
     }
 }
