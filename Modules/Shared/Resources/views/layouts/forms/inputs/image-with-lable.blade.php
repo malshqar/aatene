@@ -1,14 +1,15 @@
-@props(['type' => 'text', 'value' => '', 'placeholder' => '', 'lable' => false, 'name', 'required' => true, 'id' => 'name', 'value' => ''])
+@props(['type' => 'text', 'value' => null, 'placeholder' => '', 'lable' => false, 'name', 'required' => true, 'id' => 'name', 'value' => ''])
 
 @include('shared::layouts.forms.lables.lable', ['lable' => $lable])
 <!--begin::Image input placeholder-->
+<!--begin::Image input placeholder-->
 <style>
     .image-input-placeholder {
-        background-image: url('/assets/media/svg/files/blank-image.svg');
+        background-image: url('{{ $value ? $value : '/assets/media/svg/files/blank-image.svg' }}');
     }
 
     [data-bs-theme="dark"] .image-input-placeholder {
-        background-image: url('/assets/media/svg/files/blank-image-dark.svg');
+        background-image: url('{{ $value? $value : '/assets/media/svg/files/blank-image-dark.svg' }}');
     }
 </style>
 <!--begin::Image input-->

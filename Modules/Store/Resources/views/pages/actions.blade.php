@@ -13,12 +13,11 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container container-xxl">
                     @include("store::_show_navbar", ['store' => $store])
-                    <div class="card">
+                    <div class="card mb-5">
 
                         <!--begin::Card header-->
                         <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
-                            data-bs-target="#kt_store_delete" aria-expanded="true"
-                            aria-controls="kt_store_delete">
+                            data-bs-target="#kt_store_delete" aria-expanded="true" aria-controls="kt_store_delete">
                             <div class="card-title m-0">
                                 <h3 class="fw-bold m-0">{{__("حذف المتجر نهائيا")}}</h3>
                             </div>
@@ -29,7 +28,8 @@
                         <div id="kt_store_delete" class="collapse show">
                             <!--begin::Form-->
                             <form id="kt_store_delete_form" class="form fv-plugins-bootstrap5 fv-plugins-framework"
-                                novalidate="novalidate" method="post" action="{{route("dashboard.stores.destroy", $store->id)}}">
+                                novalidate="novalidate" method="post"
+                                action="{{route("dashboard.stores.destroy", $store->id)}}">
                                 @csrf
                                 @method('DELETE')
                                 <!--begin::Card body-->
@@ -89,6 +89,42 @@
                         </div>
                         <!--end::Content-->
                     </div>
+                    <div class="card">
+                        <!--begin::Card header-->
+                        <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
+                            data-bs-target="#kt_store_delete" aria-expanded="true" aria-controls="kt_store_delete">
+                            <div class="card-title m-0">
+                                <h3 class="fw-bold m-0">{{__("إضافة المتجر إلى مجموعة")}}</h3>
+                            </div>
+                        </div>
+                        <!--end::Card header-->
+
+                        <form method="post" action="{{route('dashboard.groups.addStoreToGroups',$store->id)}}">
+                            @csrf
+                            <div class="card-body">
+                                <select data-control="select2" dir="rtl" name="group_ids[]" @class([
+                                    'form-select',
+                                    'form-select-solid ',
+                                    'is-invalid' => $errors->has('group_ids'),
+                                ]) multiple
+                                    placeholder="اختر المجموعة التي تريد إضافة المتجر إليها">
+                                    @foreach ($groups as $group)
+                                  
+                                        <option value="{{ $group->id }}" @if (old('group_ids') && in_array($group->id, old('group_ids')) ||   (in_array($group->id , $store->groups()->pluck('id','id')->toArray()??[]))) selected @endif>
+                                            {{ __($group->name)}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!--begin::Card footer-->
+                            <div class="card-footer d-flex justify-content-start py-6 px-9">
+                                <button type="submit" class="btn btn-primary fw-semibold">{{__("إضافة")}}
+                                </button>
+                            </div>
+                            <!--end::Card footer-->
+                        </form>
+                    </div>
                 </div>
 
             </div>
@@ -103,5 +139,5 @@
 @endsection
 
 @push('scripts')
-{{ module_vite('build-store', 'Resources/assets/js/delete.js') }}
+    {{ module_vite('build-store', 'Resources/assets/js/delete.js') }}
 @endpush

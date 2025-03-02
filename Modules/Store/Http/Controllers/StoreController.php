@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Seller\Entities\Seller;
 use Modules\Shared\Helpers\DeleteAjaxRespose;
+use Modules\Store\Entities\Group;
 use Modules\Store\Entities\Store;
 
 class StoreController extends Controller
@@ -30,9 +31,22 @@ class StoreController extends Controller
 
     public function acceptStore(Store $store)
     {
-        $store->update(['is_accepted' => true]);
-        return back()->with(['notification' => 'تم قبول هذا المتجر بنجاح']);
+        $store->update(['is_accepted' => !$store->is_accepted]);
+        return back()->with(['notification' => 'تم تعديل حالة هذا المتجر بنجاح']);
     }
+
+
+    public function addStoreToGroups(Request $request, Store $store)
+    {
+        $request->validate([
+            'group_ids' => ['required'],
+            'group_ids.*' => ['required', 'exists:groups,id'],
+        ]);
+        $store->groups()->sync($request->group_ids);
+        return back()->with(['notification'=>'تمت عملية الإضافة بنجاح']);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -64,7 +78,8 @@ class StoreController extends Controller
 
     public function actions(Store $store)
     {
-        return view('store::pages.actions', compact('store'));
+        $groups = Group::all();
+        return view('store::pages.actions', compact('store', 'groups'));
     }
 
     /**

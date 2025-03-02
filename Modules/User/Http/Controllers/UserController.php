@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Shared\Helpers\Slug;
 use Modules\User\Entities\User;
 use Modules\User\Events\UserBlocked;
 use Modules\User\Events\UserCancelBlocked;
@@ -88,7 +89,7 @@ class UserController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $user->uploadOnDisk($file, str_replace(' ', '_', $user->name));
-                $user->storeImage($path, \Str::slug($file->getClientOriginalName()));
+                $user->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
 
         });
@@ -119,7 +120,7 @@ class UserController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $user->uploadOnDisk($file, str_replace(' ', '_', $user->name));
-                $user->updateImage($path, \Str::slug($file->getClientOriginalName()));
+                $user->updateImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
         });
         return to_route('dashboard.users.index')->with(['notification' => " تم تعديل بيانات $user->name بنجاح"]);

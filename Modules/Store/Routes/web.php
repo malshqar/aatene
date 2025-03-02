@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Store\Entities\Group;
+use Modules\Store\Http\Controllers\GroupController;
 use Modules\Store\Http\Controllers\StoreController;
 
 /*
@@ -20,5 +22,7 @@ use Modules\Store\Http\Controllers\StoreController;
 //     });
 // });
 Route::resource('stores',StoreController::class);
+Route::resource('groups',GroupController::class);
+Route::post('store-add-to-groups/{store}',[StoreController::class,'addStoreToGroups'])->name('groups.addStoreToGroups');
 Route::post('stores/accept/{store}',[StoreController::class,'acceptStore'])->name('stores.accept');
 Route::get('stores/actions/{store}',[StoreController::class,'actions'])->name('stores.actions');

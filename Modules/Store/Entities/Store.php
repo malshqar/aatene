@@ -53,9 +53,9 @@ class Store extends Model
     }
 
     
-    public function followers()
+    public function groups()
     {
-        return $this->belongsToMany(User::class, 'followers'  , 'store_id' , 'user_id');
+        return $this->belongsToMany(Group::class, 'store_group');
     }
 
     protected static function newFactory()

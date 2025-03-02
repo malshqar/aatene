@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Admin\Entities\Admin;
 use Modules\Admin\Http\Requests\AdminRequest;
+use Modules\Shared\Helpers\Slug;
 use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
@@ -53,7 +54,7 @@ class AdminController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
-                $admin->storeImage($path, \Str::slug($file->getClientOriginalName(), '-', 'ar'));
+                $admin->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
             foreach ($names as $role) {
                 $admin->assignRole($role);
@@ -99,7 +100,7 @@ class AdminController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $admin->uploadOnDisk($file, str_replace(' ', '_', $admin->name));
-                $admin->updateImage($path, \Str::slug($file->getClientOriginalName()));
+                $admin->updateImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
             foreach ($names as $role) {
                 $admin->assignRole($role);

@@ -10,6 +10,7 @@ use Modules\Seller\Entities\Seller;
 use Modules\Seller\Events\SellerBlocked;
 use Modules\Seller\Events\SellerCancelBlocked;
 use Modules\Seller\Http\Requests\SellerRequest;
+use Modules\Shared\Helpers\Slug;
 
 class SellerController extends Controller
 {
@@ -83,7 +84,7 @@ class SellerController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $seller->uploadOnDisk($file, str_replace(' ', '_', $seller->name));
-                $seller->storeImage($path, \Str::slug($file->getClientOriginalName()));
+                $seller->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
 
         });
@@ -114,7 +115,7 @@ class SellerController extends Controller
             if ($request->hasFile('avatar')) {
                 $file = $request->file('avatar');
                 $path = $seller->uploadOnDisk($file, str_replace(' ', '_', $seller->name));
-                $seller->updateImage($path, \Str::slug($file->getClientOriginalName()));
+                $seller->updateImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
             }
         });
         return to_route('dashboard.sellers.index')->with(['notification' => " تم تعديل بيانات $seller->name بنجاح"]);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Store\Http\Controllers\GroupApiController;
 use Modules\Store\Http\Controllers\StoreApiController;
 
 /*
@@ -23,3 +24,9 @@ Route::get('/stores', [StoreApiController::class, 'index']);
 Route::get('/store/{store:slug}', [StoreApiController::class, 'show']);
 Route::get('/stores-with-seller', [StoreApiController::class, 'storeWithSeller']);
 Route::middleware('auth:seller_api')->delete('/store/delete',[StoreApiController::class,'destroy']);
+
+
+
+Route::get('groups', [GroupApiController::class, 'index']);
+Route::get('group/{group}', [GroupApiController::class, 'show']);
+    
