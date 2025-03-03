@@ -66,14 +66,14 @@ trait HasPhoto
     }
 
 
-    public static function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
+    public  function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
     {
         $name = time().'_'.rand(0, 5).'_'.$image->getClientOriginalName();
         $path = $image->storeAs("$dir", $name, $disk);
         return $path;
     }
 
-    public static function uploadImagesOnDisk($images, $dir = 'uploads', $disk = 'public')
+    public  function uploadImagesOnDisk($images, $dir = 'uploads', $disk = 'public')
     {
         $data_images = [];
         foreach ($images as $image) {

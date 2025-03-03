@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->text('url');
             $table->string('name',100);
-            $table->timestamp('start_at');
-            $table->timestamp('end_at');
+            $table->date('start_at');
+            $table->date('end_at');
             $table->enum('priority',[range(1,10)])->default(1);
             $table->timestamps();
         });

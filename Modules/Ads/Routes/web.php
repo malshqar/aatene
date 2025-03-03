@@ -1,5 +1,8 @@
 <?php
 
+// use Modules\Ads\Http\Controllers\AdsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,5 @@
 |
 */
 
-Route::prefix('ads')->group(function() {
-    Route::get('/', 'AdsController@index');
-});
+
+Route::resource('ads',AdsController::class);

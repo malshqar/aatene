@@ -1,6 +1,5 @@
 <?php
 
-use Modules\Store\Entities\Group;
 use Modules\Store\Http\Controllers\GroupController;
 use Modules\Store\Http\Controllers\StoreController;
 
