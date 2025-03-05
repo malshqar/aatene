@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Modules\Seller\Jobs\CheckBanSellersDateFinishedJob;
+use Modules\Store\Jobs\DeleteExpiredStory;
 use Modules\User\Jobs\CheckBanUsersDateFinishedJob;
 
 class Kernel extends ConsoleKernel
@@ -14,6 +16,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->job(new CheckBanUsersDateFinishedJob())->everyTenSeconds();
+        $schedule->job(new CheckBanSellersDateFinishedJob())->everyTenSeconds();
+        $schedule->job(new DeleteExpiredStory())->daily();
     }
 
     /**

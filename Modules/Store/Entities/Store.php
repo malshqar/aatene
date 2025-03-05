@@ -52,12 +52,20 @@ class Store extends Model
         return $this->belongsTo(Seller::class);
     }
 
-    
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
+    }
+
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'store_group');
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers');
+    }
     protected static function newFactory()
     {
         return \Modules\Store\Database\factories\StoreFactory::new();

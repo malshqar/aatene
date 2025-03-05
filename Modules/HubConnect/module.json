@@ -1,0 +1,11 @@
+{
+    "name": "HubConnect",
+    "alias": "hubconnect",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HubConnect\\Providers\\HubConnectServiceProvider"
+    ],
+    "files": []
+}

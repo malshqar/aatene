@@ -2,12 +2,13 @@
 
 namespace Modules\Followers\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Followers\Entities\Follower;
+use Modules\Seller\Entities\Seller;
 use Modules\Shared\Http\Responses\ApiResponse;
 use Modules\Store\Entities\Store;
+use Modules\User\Entities\User;
 
 class FollowersController extends Controller
 {
@@ -44,11 +45,11 @@ class FollowersController extends Controller
 
     public function followersList()
     {
-        if (auth()->guard() == 'seller_api') {
-            $followers = auth()->guard('seller_api')->user()->store()->followers()->paginate();
+        if (auth()->user() instanceof Seller) {
+            $followers = auth()->guard('seller_api')->user()->store?->followers()->paginate();
+        }else if (auth()->user() instanceof User) {
+            $followers = auth()->guard('user_api')->user()?->followers()->paginate();
         }
-            $followers = auth()->guard('user_api')->user()->followers()->paginate();
-
         return ApiResponse::success($followers);
     }
 }

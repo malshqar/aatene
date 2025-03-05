@@ -7,6 +7,7 @@
     @includeWhen(Module::find('seller')->isEnabled(), 'dashboard::layouts.sidebar-list.sellers')
     @includeWhen(Module::find('store')->isEnabled(), 'dashboard::layouts.sidebar-list.stores')
     @includeWhen(Module::find('ads')->isEnabled(), 'dashboard::layouts.sidebar-list.ads')
+    @includeWhen(Module::find('HubConnect')->isEnabled(), 'dashboard::layouts.sidebar-list.faqs')
 @endpush
 @section('content')
     <div class="p-20">

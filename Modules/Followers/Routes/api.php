@@ -14,6 +14,6 @@ use Modules\Followers\Http\Controllers\FollowersController;
 |
 */
 
-Route::get('followers', [FollowersController::class, 'followersList']);
-Route::post('follow/{store:slug}', [FollowersController::class, 'follow'])->name('store.follow');
-Route::delete('unfollow/{store:slug}', [FollowersController::class, 'unfollow'])->name('store.unfollow');
+Route::middleware('auth:seller_api,user_api')->get('followers', [FollowersController::class, 'followersList']);
+Route::middleware('auth:user_api')->post('follow/{store:slug}', [FollowersController::class, 'follow'])->name('store.follow');
+Route::middleware('auth:user_api')->delete('unfollow/{store:slug}', [FollowersController::class, 'unfollow'])->name('store.unfollow');

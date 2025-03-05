@@ -13,5 +13,6 @@
     "Auth": true,
     "Store": true,
     "Followers": true,
-    "Ads": true
+    "Ads": true,
+    "HubConnect": true
 }

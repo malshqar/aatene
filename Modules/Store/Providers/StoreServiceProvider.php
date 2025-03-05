@@ -5,7 +5,11 @@ namespace Modules\Store\Providers;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Store\Events\ReactionOnStory;
 use Modules\Store\Events\StoreCreated;
+use Modules\Store\Events\StoryCreated;
+use Modules\Store\Listeners\SendNotifiactionToFollowers;
+use Modules\Store\Listeners\SendNotifiactionToSellerUserReaction;
 use Modules\Store\Listeners\SendNotificationNewStoreCreated;
 
 class StoreServiceProvider extends ServiceProvider
@@ -30,6 +34,14 @@ class StoreServiceProvider extends ServiceProvider
         Event::listen(
             StoreCreated::class,
             SendNotificationNewStoreCreated::class,
+        );
+        Event::listen(
+            StoryCreated::class,
+            SendNotifiactionToFollowers::class,
+        );
+        Event::listen(
+            ReactionOnStory::class,
+            SendNotifiactionToSellerUserReaction::class,
         );
         $this->registerTranslations();
         $this->registerConfig();

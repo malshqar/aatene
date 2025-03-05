@@ -65,6 +65,24 @@ class AccessControlDatabaseSeeder extends Seeder
             'role.show',
             'role.edit',
             'role.delete',
+            // ads table permissions
+            'ads.index',
+            'ads.create',
+            'ads.show',
+            'ads.edit',
+            'ads.delete',
+            // faqs table permissions
+            'faq.index',
+            'faq.create',
+            'faq.show',
+            'faq.edit',
+            'faq.delete',
+            // faq_categories table permissions
+            'faq_category.index',
+            'faq_category.create',
+            'faq_category.show',
+            'faq_category.edit',
+            'faq_category.delete',
             // followers table permissions
             'follower.follow',
             'follower.unfollow',
