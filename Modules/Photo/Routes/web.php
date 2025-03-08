@@ -1,5 +1,7 @@
 <?php
 
+use Modules\Photo\Http\Controllers\ImageUploadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,7 +12,5 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('photo')->group(function() {
-    Route::get('/', 'PhotoController@index');
-});
+Route::post('image-upload', [ImageUploadController::class, 'storeImage'])->name('image.upload');
+Route::delete('/delete-image', [ImageUploadController::class, 'deleteImage'])->name('image.delete');

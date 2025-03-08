@@ -43,7 +43,7 @@ class BlogController extends Controller
             'title' => ['required', 'string', 'min:2', 'max:255'],
             'writer' => ['required', 'string', 'min:2', 'max:150'],
             'content' => ['required', 'string'],
-            'is_published' => ['required', 'boolean'],
+            'is_published' => ['sometimes', 'boolean'],
             'tags'=>['required'],
             'tags.*'=>['required','string','max:255'],
         ]);
@@ -58,6 +58,12 @@ class BlogController extends Controller
             $blog->attachTags(explode(',',$request->tags));
         });
         return back()->with(['notification' => __("تمت الإضافة بنجاح")]);
+    }
+
+    public function publish(Blog $blog)
+    {
+        $blog->update(['is_published'=>!$blog->is_published]);
+        return back()->with(['notification'=>'تم تحديث الحالة']);
     }
 
     /**
@@ -88,7 +94,7 @@ class BlogController extends Controller
             'title' => ['required', 'string', 'min:2', 'max:255'],
             'writer' => ['required', 'string', 'min:2', 'max:150'],
             'content' => ['required', 'string'],
-            'is_published' => ['required', 'boolean'],
+            'is_published' => ['sometimes', 'boolean'],
             'tags'=>['required'],
             'tags.*'=>['required','string','max:255'],
         ]);
@@ -117,6 +123,6 @@ class BlogController extends Controller
         if ($isDeleted) {
             $blog->deleteImage();
         }
-        return DeleteAjaxRespose::deleteAjaxResponse($isDeleted);
+        return DeleteAjaxRespose::deleteAjaxResponse($isDeleted??false);
     }
 }

@@ -17,9 +17,10 @@ use Modules\HubConnect\Http\Controllers\TopicController;
 |
 */
 
+Route::resource('/blogs', BlogController::class);
 Route::resource('faqs_categories', FaqCategoryController::class);
 Route::resource('faqs', FaqsController::class)->except('show');
-Route::resource('blogs', BlogController::class);
 Route::resource('job-ads', JobAdsController::class);
 Route::resource('topics', TopicController::class);
 
+Route::post('blogs/publish/{blog}', [BlogController::class, 'publish'])->name('blogs.publish');
