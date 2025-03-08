@@ -6,7 +6,7 @@ namespace Modules\Photo\Traits;
 trait FilesValidationRules
 {
     /**
-     * Get the validation rules used to validate passwords.
+     * Get the validation rules used to validate image.
      *
      * @return array<int, \Illuminate\Contracts\Validation\Rule|array<mixed>|string>
      */

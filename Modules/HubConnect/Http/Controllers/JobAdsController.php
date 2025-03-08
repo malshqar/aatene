@@ -6,9 +6,13 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\HubConnect\Entities\JobAds;
+use Modules\HubConnect\Http\Requests\JobAdsRequest;
+use Modules\Shared\Helpers\DeleteAjaxRespose;
+use Modules\Shared\Helpers\Slug;
 
 class JobAdsController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      * @return Renderable
@@ -18,7 +22,7 @@ class JobAdsController extends Controller
         $filters = request()->query();
         $count = (int) request()->query('count');
         $job_ads = JobAds::filters($filters)->latest()->paginate(($count == 0 && $count >= 100) ? 7 : $count);
-        return view('hubconnect::job-ads.index',compact('job_ads'));
+        return view('hubconnect::job-ads.index', compact('job_ads'));
     }
 
     /**
@@ -30,45 +34,45 @@ class JobAdsController extends Controller
         return view('hubconnect::job-ads.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
+    public function store(JobAdsRequest $request)
     {
-        //
+        \DB::transaction(function () use ($request) {
+            $job_ads = JobAds::create($request->validated());
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $path = $job_ads->uploadOnDisk($file, 'job_ads');
+                $job_ads->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+            }
+            $job_ads->attachTags(explode(',',$request->tags));
+        });
+        return back()->with(['notification' => __("تمت الإضافة بنجاح")]);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('hubconnect::show');
-    }
+
 
     /**
      * Show the form for editing the specified resource.
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
+    public function edit(JobAds $job_ad)
     {
-        return view('hubconnect::edit');
+        return view('hubconnect::job-ads.edit', compact('job_ad'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+    public function update(JobAdsRequest $request, $id)
     {
-        //
+        $job_ads = JobAds::findOrFail($id);
+        \DB::transaction(function () use ($request, $job_ads) {
+            $job_ads->update($request->validated());
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $path = $job_ads->uploadOnDisk($file, 'job_ads');
+                $job_ads->storeImage($path, Slug::ar(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)));
+            }
+            $job_ads->syncTags(explode(',',$request->tags));
+        });
+        return to_route('dashboard.job-ads.index')->with(['notification'=>__("تمت عملية التعديل بنجاح")]);
     }
 
     /**
@@ -78,6 +82,11 @@ class JobAdsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $job_ads  = JobAds::findOrFail($id);
+        $isDeleted = $job_ads->delete();
+        if ($isDeleted) {
+            $job_ads->deleteImage();
+        }
+        return DeleteAjaxRespose::deleteAjaxResponse($isDeleted??false);
     }
 }

@@ -66,6 +66,19 @@
                 <!--end:Menu link-->
             </div>
             <!--end:Menu item-->
+                  <!--begin:Menu item-->
+                  <div class="menu-item">
+                    <!--begin:Menu link-->
+                    <a @class(['menu-link', 'active' => Route::is('dashboard.job-ads.index')])
+                        href="{{ route('dashboard.job-ads.index') }}">
+                        <span class="menu-bullet">
+                            <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title fs-5"> {{__("إعلانات الوظائف")}} </span>
+                    </a>
+                    <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
         </div>
         <!--end:Menu item-->
     </div>

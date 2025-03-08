@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jobs_ads', function (Blueprint $table) {
+        Schema::create('job_ads', function (Blueprint $table) {
             $table->id();
-            $table->morphs('userable');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('location');
-            $table->decimal('salary', 8, 2)->nullable();
+            $table->string('salary')->nullable();
             $table->string('company');
-            $table->enum('type', ['full-time', 'part-time', 'piece'])->default('full-time');
+            $table->enum('type', ['full-time', 'part-time', 'freelance'])->default('full-time');
             $table->enum('place', ['office', 'remotly'])->default('office');
             $table->date('deadline');
             $table->timestamps();

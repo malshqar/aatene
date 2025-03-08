@@ -15,8 +15,11 @@ trait JobAdsHasScopes
         ], $filters);
         $builder->when($params['search'], function ($builder, $value) {
             $builder->where('title', 'like', "%".$value."%");
-            $builder->where('content', 'like', "%".$value."%");
-            $builder->where('writer', 'like', "%".$value."%");
+            $builder->where('description', 'like', "%".$value."%");
+            $builder->where('place', 'like', "%".$value."%");
+            $builder->where('type', 'like', "%".$value."%");
+            $builder->where('location', 'like', "%".$value."%");
+            $builder->where('salary', 'like', "%".$value."%");
         });
         $builder->when($params['orderBy'], function ($builder, $value) {
             $builder->orderBy('id',$value);

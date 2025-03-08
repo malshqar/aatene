@@ -5,13 +5,15 @@ namespace Modules\HubConnect\Entities;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\HubConnect\Traits\JobAdsHasScopes;
 use Modules\Photo\Traits\HasPhoto;
 use Spatie\Tags\HasTags;
 
 class JobAds extends Model
 {
-    use HasFactory,Sluggable,HasPhoto,HasTags;
-     /**
+    use HasFactory, Sluggable, HasPhoto, HasTags,JobAdsHasScopes;
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array
@@ -36,6 +38,10 @@ class JobAds extends Model
         'type',
         'place',
         'deadline',
+    ];
+
+    protected $casts = [
+        'deadline'=>'date'
     ];
 
     protected static function newFactory()
