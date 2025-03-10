@@ -68,8 +68,8 @@
                                     <!--end::Card body-->
                                     <!--begin::Card footer-->
                                     <div class="card-footer flex-wrap pt-0">
-                                        <a href="{{ route('dashboard.groups.show', $group->id) }}"
-                                            class="btn btn-light btn-active-light-primary my-1">عرض </a>
+                                        {{-- <a href="{{ route('dashboard.groups.show', $group->id) }}"
+                                            class="btn btn-light btn-active-light-primary my-1">عرض </a> --}}
                                         <a href="{{ route('dashboard.groups.edit', $group->id) }}"
                                             class="btn btn-light btn-active-light-success my-1">تعديل
                                         </a>

@@ -188,42 +188,42 @@
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 {{Route::is('dashboard.stores.show', $store->id) ? "active" : ""}}"
-                    href="/metronic8/demo1/pages/user-profile/overview.html">
+                    href="#">
                     نظرة عامة </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 "
-                    href="/metronic8/demo1/pages/user-profile/projects.html">
+                    href="#">
                     المنتجات </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 "
-                    href="/metronic8/demo1/pages/user-profile/campaigns.html">
+                    href="#">
                     الطلبات </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 "
-                    href="/metronic8/demo1/pages/user-profile/documents.html">
+                    href="#">
                     المراجعات </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 "
-                    href="/metronic8/demo1/pages/user-profile/followers.html">
+                    href="#">
                     المتابعين </a>
             </li>
             <!--end::Nav item-->
             <!--begin::Nav item-->
             <li class="nav-item mt-2">
                 <a class="nav-link text-active-primary ms-0 me-10 py-5 "
-                    href="/metronic8/demo1/pages/user-profile/activity.html">
+                    href="#">
                     الأنشطة </a>
             </li>
             <!--end::Nav item-->
