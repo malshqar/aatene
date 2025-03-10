@@ -4,7 +4,6 @@ use Modules\HubConnect\Http\Controllers\BlogController;
 use Modules\HubConnect\Http\Controllers\FaqCategoryController;
 use Modules\HubConnect\Http\Controllers\FaqsController;
 use Modules\HubConnect\Http\Controllers\JobAdsController;
-use Modules\HubConnect\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +20,5 @@ Route::resource('/blogs', BlogController::class);
 Route::resource('faqs_categories', FaqCategoryController::class);
 Route::resource('faqs', FaqsController::class)->except('show');
 Route::resource('job-ads', JobAdsController::class);
-Route::resource('topics', TopicController::class);
 
 Route::post('blogs/publish/{blog}', [BlogController::class, 'publish'])->name('blogs.publish');

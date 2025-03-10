@@ -66,14 +66,14 @@ trait HasPhoto
     }
 
 
-    public  function uploadOnDisk($image, $dir = 'uploads', $disk = 'public')
+    public function uploadOnDisk($image, $dir = 'uploads', $disk = 's3')
     {
-        $name = time().'_'.rand(0, 5).'_'.$image->getClientOriginalName();
-        $path = $image->storeAs("$dir", $name, $disk);
+        $name = time() . '_' . rand(0, 5) . '_' . $image->getClientOriginalName();
+        $path = $image->storeAs("aatene/$dir", $name, $disk);
         return $path;
     }
 
-    public  function uploadImagesOnDisk($images, $dir = 'uploads', $disk = 'public')
+    public function uploadImagesOnDisk($images, $dir = 'uploads', $disk = 's3')
     {
         $data_images = [];
         foreach ($images as $image) {
@@ -95,7 +95,7 @@ trait HasPhoto
         } else if ((count($photo) == 1)) {
             //  $url = Storage::temporaryUrl($photo->src, now()->minutes(120));
             return [
-                'url' => asset(Storage::url($this->photo->src)),
+                'url' => Storage::disk('s3')->temporaryUrl($this->photo->src, now()->minutes(120)),
                 'type' => $this->photo->type,
                 'slug' => $this->photo->slug
             ];
@@ -103,7 +103,7 @@ trait HasPhoto
             $url = [];
             foreach ($photo as $el) {
                 $url[] = [
-                    'url' => asset(Storage::url($el->src)),
+                    'url' => Storage::disk('s3')->temporaryUrl($el->src, now()->minutes(120)),
                     'type' => $el->type,
                     'slug' => $el->slug
                 ];

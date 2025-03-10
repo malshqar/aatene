@@ -10,7 +10,7 @@ class PhotoObserver
     {
         $is_exist = Photo::where('src', $photo->src)->exists();
         if ($is_exist) {
-            \Storage::disk('public')->delete($photo->src);
+            \Storage::disk('s3')->delete($photo->src);
         }
     }
 

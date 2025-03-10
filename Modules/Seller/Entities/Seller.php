@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\HubConnect\Entities\Topic;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Seller\Traits\HasScopes;
 use Modules\Store\Entities\Store;
@@ -71,5 +72,9 @@ class Seller extends User implements MustVerifyEmail
     public function store()
     {
         return $this->hasOne(Store::class);
+    }
+    public function topics()
+    {
+        return $this->morphMany(Topic::class, 'userable');
     }
 }

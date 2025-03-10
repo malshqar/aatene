@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\HubConnect\Entities\Topic;
 use Modules\Photo\Traits\HasPhoto;
 use Modules\Store\Entities\Store;
 use Modules\User\Traits\HasScopes;
@@ -71,6 +72,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Store::class, 'followers', 'user_id', 'store_id');
     }
     
-
+    public function topics()
+    {
+        return $this->morphMany(Topic::class, 'userable');
+    }
 }
 

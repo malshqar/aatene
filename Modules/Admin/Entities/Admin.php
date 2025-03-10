@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Admin\Traits\HasScopes;
+use Modules\HubConnect\Entities\Topic;
 use Modules\Photo\Traits\HasPhoto;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -38,6 +39,10 @@ class Admin extends User implements MustVerifyEmail
         return \Modules\Admin\Database\factories\AdminFactory::new();
     }
 
+    public function topics()
+    {
+        return $this->morphMany(Topic::class, 'userable');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

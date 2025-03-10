@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\HubConnect\Http\Controllers\Api\BlogController;
+use Modules\HubConnect\Http\Controllers\Api\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/hubconnect', function (Request $request) {
-    return $request->user();
-});
+Route::get('topics/me',[TopicController::class,'me']);
+Route::get('blogs',[BlogController::class,'index']);
+Route::apiResource('topics',TopicController::class);
