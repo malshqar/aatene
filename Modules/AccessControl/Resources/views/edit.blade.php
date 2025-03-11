@@ -76,14 +76,14 @@
                                                             </td>
                                                         </tr>
                                                         <!--end::Table row-->
-                                                        @foreach ($permissions->split(6) as $permissions)
+                                                        @foreach ($permissions->split(14) as $permissions)
                                                             <!--begin::Table row-->
                                                             <tr>
                                                                 @foreach ($permissions as $permission)
                                                                     <!--begin::Options-->
                                                                     <td>
                                                                         <!--begin::Wrapper-->
-                                                                        <div class="d-flex">
+                                            `                            <div class="d-flex">
                                                                             <!--begin::Checkbox-->
                                                                             <label
                                                                                 class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">

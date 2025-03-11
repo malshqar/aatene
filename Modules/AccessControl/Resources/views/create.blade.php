@@ -75,7 +75,7 @@
                                                             </td>
                                                         </tr>
                                                         <!--end::Table row-->
-                                                        @foreach ($permissions->split(8) as $permissions)
+                                                        @foreach ($permissions->split(14) as $permissions)
                                                             <!--begin::Table row-->
                                                             <tr>
                                                                 @foreach ($permissions as $permission)

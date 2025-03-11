@@ -42,7 +42,7 @@ class SellerBlockedNotifications extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->view('seller::emails.ban')
+        ->view('user::emails.ban')
         ->subject('!لقد تم حظر حسابك')
         ->greeting("مرحبا بك $notifiable->name")
         ->line("لقد تم حظر حسابك    : $notifiable->ban_reason")
